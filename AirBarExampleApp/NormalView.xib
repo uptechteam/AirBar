@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NormalView" customModule="AirBarExampleApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vp3-zI-Vxh">
+                    <rect key="frame" x="20" y="0.0" width="335" height="42"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="l6e-T0-88R">
+                            <rect key="frame" x="10" y="9.5" width="23" height="23"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="23" id="dee-bn-e6q"/>
+                                <constraint firstAttribute="height" constant="23" id="i3X-6h-5gs"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anywhere - Anytime - 2 guests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMq-a9-nbD">
+                            <rect key="frame" x="43" y="12.5" width="282" height="17"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="l6e-T0-88R" firstAttribute="centerY" secondItem="Vp3-zI-Vxh" secondAttribute="centerY" id="6Pb-wO-E8k"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="SVS-8o-X16"/>
+                        <constraint firstItem="vMq-a9-nbD" firstAttribute="leading" secondItem="l6e-T0-88R" secondAttribute="trailing" constant="10" id="XVe-5q-1MA"/>
+                        <constraint firstAttribute="trailing" secondItem="vMq-a9-nbD" secondAttribute="trailing" constant="10" id="h35-Kw-Kh7"/>
+                        <constraint firstAttribute="height" constant="42" id="r8B-2V-Z39"/>
+                        <constraint firstItem="l6e-T0-88R" firstAttribute="leading" secondItem="Vp3-zI-Vxh" secondAttribute="leading" constant="10" id="vsU-Yb-3mW"/>
+                        <constraint firstItem="vMq-a9-nbD" firstAttribute="centerY" secondItem="Vp3-zI-Vxh" secondAttribute="centerY" id="zjZ-S3-PhO"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Vp3-zI-Vxh" secondAttribute="trailing" constant="20" id="Jnn-Wi-czK"/>
+                <constraint firstItem="Vp3-zI-Vxh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rHu-04-jig"/>
+                <constraint firstItem="Vp3-zI-Vxh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="zsb-8B-Yyg"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="search" width="100" height="100"/>
+    </resources>
+</document>

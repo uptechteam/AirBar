@@ -17,6 +17,14 @@ public struct AirBarControllerConfiguration {
     self.normalStateHeight = normalStateHeight
     self.compactStateHeight = compactStateHeight
     self.expandedStateHeight = expandedStateHeight
+
+    if let compactStateHeight = compactStateHeight {
+      assert(compactStateHeight < normalStateHeight, "Compact state height must be lower then normal state height.")
+    }
+
+    if let expandedStateHeight = expandedStateHeight {
+      assert(normalStateHeight < expandedStateHeight, "Expanded state height must be bigger then normal state height.")
+    }
   }
 
   func height(for state: AirBarState) -> CGFloat? {
@@ -65,7 +73,7 @@ public class AirBarController: NSObject {
   private var previousYOffset: CGFloat?
   private var currentExpandedStateAvailability = false
 
-  // KVO
+  // KVO context.
   private var observerContext = 0
 
   // MARK: - Lifecycle
@@ -77,6 +85,7 @@ public class AirBarController: NSObject {
     super.init()
 
     scrollView.topContentInset = configuration.normalStateHeight
+    scrollView.scrollIndicatorInsets = UIEdgeInsets(top: configuration.normalStateHeight, left: 0, bottom: 0, right: 0)
     scrollView.setContentOffset(CGPoint(x: 0, y: -configuration.normalStateHeight), animated: false)
 
     setupScrollViewObserving()
@@ -118,7 +127,7 @@ public class AirBarController: NSObject {
       scrollView.contentOffset.y <= -configuration.normalStateHeight,
       let height = configuration.height(for: roundedState)
     {
-      scrollView.setContentOffset(CGPoint(x: 0, y: -height), animated: true)
+      setContentOffset(CGPoint(x: 0, y: -height))
       return
     }
 
@@ -133,7 +142,7 @@ public class AirBarController: NSObject {
       }
 
       let newContentOffset = CGPoint(x: scrollView.contentOffset.x, y: scrollView.contentOffset.y + yOffsetDelta)
-      scrollView.setContentOffset(newContentOffset, animated: true)
+      setContentOffset(newContentOffset)
     }
   }
 
@@ -188,6 +197,24 @@ public class AirBarController: NSObject {
 
   private func scrollViewContentSizeChanged(to contentSize: CGSize) {
 
+  }
+
+  private func setContentOffset(_ contentOffset: CGPoint, animated: Bool = true) {
+    guard let scrollView = scrollView else { return }
+
+    // Stop native deceleration. 
+    scrollView.setContentOffset(scrollView.contentOffset, animated: false)
+
+    let animate = {
+      scrollView.contentOffset = contentOffset
+    }
+
+    guard animated else {
+      animate()
+      return
+    }
+
+    UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: animate, completion: nil)
   }
 
   // MARK: - Observing

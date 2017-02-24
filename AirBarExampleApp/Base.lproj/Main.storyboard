@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,9 +22,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hX5-xA-oHy">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hX5-xA-oHy">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="80" id="ATK-jo-lOr">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ATK-jo-lOr" id="Lv7-ID-pPP">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8y1-F3-LC1">
+                                                    <rect key="frame" x="20" y="24" width="48" height="48"/>
+                                                    <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="8y1-F3-LC1" secondAttribute="height" multiplier="1:1" id="NGd-eH-dGf"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ezv-dL-6OS">
+                                                    <rect key="frame" x="83.5" y="24" width="271.5" height="14"/>
+                                                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="14" id="M7q-0J-Zwv"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4tD-cV-BPQ">
+                                                    <rect key="frame" x="84" y="58" width="211" height="14"/>
+                                                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="14" id="aLo-i9-RKO"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="8y1-F3-LC1" secondAttribute="bottom" constant="8" id="3pE-d3-7VZ"/>
+                                                <constraint firstItem="Ezv-dL-6OS" firstAttribute="leading" secondItem="8y1-F3-LC1" secondAttribute="trailing" constant="16" id="Anf-dR-mQZ"/>
+                                                <constraint firstItem="Ezv-dL-6OS" firstAttribute="top" secondItem="Lv7-ID-pPP" secondAttribute="top" constant="24" id="CWe-lp-yRX"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ezv-dL-6OS" secondAttribute="trailing" constant="20" id="Hju-43-qjB"/>
+                                                <constraint firstItem="4tD-cV-BPQ" firstAttribute="leading" secondItem="8y1-F3-LC1" secondAttribute="trailing" constant="16" id="L11-98-1aF"/>
+                                                <constraint firstItem="8y1-F3-LC1" firstAttribute="leading" secondItem="Lv7-ID-pPP" secondAttribute="leading" constant="20" id="Myz-Cz-Ppb"/>
+                                                <constraint firstAttribute="trailing" secondItem="4tD-cV-BPQ" secondAttribute="trailing" constant="80" id="eg2-TN-gxX"/>
+                                                <constraint firstItem="8y1-F3-LC1" firstAttribute="top" secondItem="Lv7-ID-pPP" secondAttribute="top" constant="24" id="fgG-8A-PeJ"/>
+                                                <constraint firstAttribute="bottom" secondItem="4tD-cV-BPQ" secondAttribute="bottom" constant="8" id="o6X-5C-92w"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

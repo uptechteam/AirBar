@@ -14,38 +14,77 @@ class ViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
 
   var airBar: UIView!
-  var normalView: UIView!
+  var backgroundView: UIView!
+  var normalView: NormalView!
   var expandedView: UIView!
-  var compactView: UIView!
+  var backButton: UIButton!
   var airBarController: AirBarController!
+
+  var shouldHideStatusBar = false {
+    didSet {
+      guard shouldHideStatusBar != oldValue else { return }
+      updateStatusBar()
+    }
+  }
+
+  var prefersStatusBarStyle = UIStatusBarStyle.lightContent {
+    didSet {
+      guard prefersStatusBarStyle != oldValue else { return }
+      updateStatusBar()
+    }
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     tableView.dataSource = self
 
-    normalView = UIView()
-    normalView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
-    normalView.backgroundColor = UIColor.red
+    backgroundView = UIImageView(image: #imageLiteral(resourceName: "grad"))
 
-    expandedView = UIView()
-    expandedView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
-    expandedView.backgroundColor = UIColor.blue
+    normalView = UINib(nibName: "NormalView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! NormalView
+    normalView.clipsToBounds = true
 
-    compactView = UIView()
-    compactView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
-    compactView.backgroundColor = UIColor.green
+    expandedView = UINib(nibName: "ExpandedView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! UIView
+    expandedView.clipsToBounds = true
+
+    backButton = UIButton(frame: CGRect(x: 22, y: 34, width: 40, height: 40))
+    backButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
+    backButton.imageEdgeInsets = UIEdgeInsets(top: 14, left: 10, bottom: 14, right: 10)
 
     airBar = UIView()
-    airBar.addSubview(normalView)
-    airBar.addSubview(compactView)
-    airBar.addSubview(expandedView)
+    airBar.backgroundColor = UIColor.white
+    airBar.layer.masksToBounds = false
+    airBar.layer.shadowRadius = 4
+    airBar.layer.shadowOpacity = 0.35
     airBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+
+    airBar.addSubview(backgroundView)
+    airBar.addSubview(normalView)
+    airBar.addSubview(expandedView)
+    airBar.addSubview(backButton)
     view.addSubview(airBar)
 
-    let configuration = AirBarControllerConfiguration(normalStateHeight: 100, compactStateHeight: 60, expandedStateHeight: 240)
+    let configuration = AirBarControllerConfiguration(normalStateHeight: 100, compactStateHeight: 24, expandedStateHeight: 244)
     airBarController = AirBarController(scrollView: tableView, configuration: configuration)
     airBarController.delegate = self
+  }
+
+  override var prefersStatusBarHidden: Bool {
+    return shouldHideStatusBar
+  }
+
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return prefersStatusBarStyle
+  }
+
+  override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+    return .fade
+  }
+
+  func updateStatusBar() {
+    UIView.animate(withDuration: 0.20, delay: 0, options: .curveEaseInOut, animations: {
+      self.setNeedsStatusBarAppearanceUpdate()
+    }, completion: nil)
   }
 }
 
@@ -59,29 +98,51 @@ extension ViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell()
-
-    cell.backgroundColor = UIColor(hue: CGFloat(indexPath.row) / 50, saturation: 0.5, brightness: 0.5, alpha: 1)
-
-    return cell
+    return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
   }
 }
 
 extension ViewController: AirBarControllerDelegate {
   func airBarController(_ controller: AirBarController, didChangeStateTo state: CGFloat) {
-    let heightRange: (CGFloat, CGFloat) = state < 1 ? (60, 100) : (100, 240)
+    let heightRange: (CGFloat, CGFloat) = state < 1 ? (24, 100) : (100, 244)
 
-    normalView.alpha = state.map(from: (1, 2), to: (1, 0))
-    compactView.alpha = state.map(from: (0, 1), to: (1, 0))
-    expandedView.alpha = state.map(from: (1, 2), to: (0, 1))
+    shouldHideStatusBar = state > 0.05 && state < 0.95
+    prefersStatusBarStyle = state > 0.5 ? .lightContent : .default
+
+    backgroundView.alpha = state.map(from: (0, 1), to: (0, 1))
 
     let stateRange: (CGFloat, CGFloat) = state < 1 ? (0, 1) : (1, 2)
 
-    let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: state.map(from: stateRange, to: heightRange))
-    normalView.frame = frame
-    compactView.frame = frame
-    expandedView.frame = frame
+    let height = state.map(from: stateRange, to: heightRange)
+    let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: height)
+    backgroundView.frame = frame
     airBar.frame = frame
+
+    let normalViewY: CGFloat
+    let normalViewAlpha: CGFloat
+    let expandedViewY: CGFloat
+    let expandedViewAlpha: CGFloat
+    let backButtonAlpha: CGFloat
+
+    if state < 1 {
+      normalViewY = state.map(from: (0, 1), to: (-40, 40))
+      normalViewAlpha = state
+      expandedViewY = 40
+      expandedViewAlpha = 0
+      backButtonAlpha = 0
+    } else {
+      normalViewY = state.map(from: (1, 2), to: (40, 80))
+      normalViewAlpha = state.map(from: (1, 2), to: (1, 0))
+      expandedViewY = state.map(from: (1, 2), to: (40, 80))
+      expandedViewAlpha = state.map(from: (1, 2), to: (0, 1))
+      backButtonAlpha = state.map(from: (1.5, 2), to: (0, 1))
+    }
+
+    normalView.frame = CGRect(x: 0, y: normalViewY, width: view.frame.width, height: height - normalViewY)
+    normalView.alpha = normalViewAlpha
+    expandedView.frame = CGRect(x: 0, y: expandedViewY, width: view.frame.width, height: height - expandedViewY)
+    expandedView.alpha = expandedViewAlpha
+    backButton.alpha = backButtonAlpha
   }
 }
 
