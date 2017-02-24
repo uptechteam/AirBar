@@ -10,6 +10,14 @@
 		6A243ACE1E6028D500AC0D40 /* AirBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A243AC41E6028D500AC0D40 /* AirBar.framework */; };
 		6A243AD31E6028D500AC0D40 /* AirBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243AD21E6028D500AC0D40 /* AirBarTests.swift */; };
 		6A243AD51E6028D500AC0D40 /* AirBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A243AC71E6028D500AC0D40 /* AirBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A243AE51E6032C600AC0D40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243AE41E6032C600AC0D40 /* AppDelegate.swift */; };
+		6A243AE71E6032C600AC0D40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243AE61E6032C600AC0D40 /* ViewController.swift */; };
+		6A243AEA1E6032C600AC0D40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A243AE81E6032C600AC0D40 /* Main.storyboard */; };
+		6A243AEC1E6032C600AC0D40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A243AEB1E6032C600AC0D40 /* Assets.xcassets */; };
+		6A243AEF1E6032C600AC0D40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A243AED1E6032C600AC0D40 /* LaunchScreen.storyboard */; };
+		6A243AF51E60333400AC0D40 /* AirBar.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 6A243AC41E6028D500AC0D40 /* AirBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A243AFA1E6035B200AC0D40 /* AirBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243AF91E6035B200AC0D40 /* AirBarController.swift */; };
+		6A243AFE1E60505B00AC0D40 /* AirBarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243AFD1E60505B00AC0D40 /* AirBarState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,7 +28,28 @@
 			remoteGlobalIDString = 6A243AC31E6028D500AC0D40;
 			remoteInfo = AirBar;
 		};
+		6A243AFB1E60482100AC0D40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A243ABB1E6028D500AC0D40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A243AC31E6028D500AC0D40;
+			remoteInfo = AirBar;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6A243AF41E60332B00AC0D40 /* Copy Framework */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6A243AF51E60333400AC0D40 /* AirBar.framework in Copy Framework */,
+			);
+			name = "Copy Framework";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6A243AC41E6028D500AC0D40 /* AirBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AirBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +58,15 @@
 		6A243ACD1E6028D500AC0D40 /* AirBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A243AD21E6028D500AC0D40 /* AirBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirBarTests.swift; sourceTree = "<group>"; };
 		6A243AD41E6028D500AC0D40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A243AE21E6032C600AC0D40 /* AirBarExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirBarExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A243AE41E6032C600AC0D40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6A243AE61E6032C600AC0D40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6A243AE91E6032C600AC0D40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6A243AEB1E6032C600AC0D40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6A243AEE1E6032C600AC0D40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6A243AF01E6032C600AC0D40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A243AF91E6035B200AC0D40 /* AirBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirBarController.swift; sourceTree = "<group>"; };
+		6A243AFD1E60505B00AC0D40 /* AirBarState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirBarState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +85,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A243ADF1E6032C600AC0D40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -55,15 +100,19 @@
 			children = (
 				6A243AC61E6028D500AC0D40 /* AirBar */,
 				6A243AD11E6028D500AC0D40 /* AirBarTests */,
+				6A243AE31E6032C600AC0D40 /* AirBarExampleApp */,
 				6A243AC51E6028D500AC0D40 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		6A243AC51E6028D500AC0D40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				6A243AC41E6028D500AC0D40 /* AirBar.framework */,
 				6A243ACD1E6028D500AC0D40 /* AirBarTests.xctest */,
+				6A243AE21E6032C600AC0D40 /* AirBarExampleApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,7 +121,9 @@
 			isa = PBXGroup;
 			children = (
 				6A243AC71E6028D500AC0D40 /* AirBar.h */,
-				6A243AC81E6028D500AC0D40 /* Info.plist */,
+				6A243AF91E6035B200AC0D40 /* AirBarController.swift */,
+				6A243AFD1E60505B00AC0D40 /* AirBarState.swift */,
+				6A243AF61E60355600AC0D40 /* Resources */,
 			);
 			path = AirBar;
 			sourceTree = "<group>";
@@ -84,6 +135,27 @@
 				6A243AD41E6028D500AC0D40 /* Info.plist */,
 			);
 			path = AirBarTests;
+			sourceTree = "<group>";
+		};
+		6A243AE31E6032C600AC0D40 /* AirBarExampleApp */ = {
+			isa = PBXGroup;
+			children = (
+				6A243AE41E6032C600AC0D40 /* AppDelegate.swift */,
+				6A243AE61E6032C600AC0D40 /* ViewController.swift */,
+				6A243AE81E6032C600AC0D40 /* Main.storyboard */,
+				6A243AEB1E6032C600AC0D40 /* Assets.xcassets */,
+				6A243AED1E6032C600AC0D40 /* LaunchScreen.storyboard */,
+				6A243AF01E6032C600AC0D40 /* Info.plist */,
+			);
+			path = AirBarExampleApp;
+			sourceTree = "<group>";
+		};
+		6A243AF61E60355600AC0D40 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6A243AC81E6028D500AC0D40 /* Info.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +208,25 @@
 			productReference = 6A243ACD1E6028D500AC0D40 /* AirBarTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		6A243AE11E6032C600AC0D40 /* AirBarExampleApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A243AF11E6032C600AC0D40 /* Build configuration list for PBXNativeTarget "AirBarExampleApp" */;
+			buildPhases = (
+				6A243ADE1E6032C600AC0D40 /* Sources */,
+				6A243ADF1E6032C600AC0D40 /* Frameworks */,
+				6A243AE01E6032C600AC0D40 /* Resources */,
+				6A243AF41E60332B00AC0D40 /* Copy Framework */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A243AFC1E60482100AC0D40 /* PBXTargetDependency */,
+			);
+			name = AirBarExampleApp;
+			productName = AirBarExampleApp;
+			productReference = 6A243AE21E6032C600AC0D40 /* AirBarExampleApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -149,9 +240,15 @@
 					6A243AC31E6028D500AC0D40 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = ESG9RMF2GN;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					6A243ACC1E6028D500AC0D40 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = ESG9RMF2GN;
+						ProvisioningStyle = Automatic;
+					};
+					6A243AE11E6032C600AC0D40 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = ESG9RMF2GN;
 						ProvisioningStyle = Automatic;
@@ -164,6 +261,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 6A243ABA1E6028D500AC0D40;
 			productRefGroup = 6A243AC51E6028D500AC0D40 /* Products */;
@@ -172,6 +270,7 @@
 			targets = (
 				6A243AC31E6028D500AC0D40 /* AirBar */,
 				6A243ACC1E6028D500AC0D40 /* AirBarTests */,
+				6A243AE11E6032C600AC0D40 /* AirBarExampleApp */,
 			);
 		};
 /* End PBXProject section */
@@ -191,6 +290,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A243AE01E6032C600AC0D40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A243AEF1E6032C600AC0D40 /* LaunchScreen.storyboard in Resources */,
+				6A243AEC1E6032C600AC0D40 /* Assets.xcassets in Resources */,
+				6A243AEA1E6032C600AC0D40 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -198,6 +307,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A243AFA1E6035B200AC0D40 /* AirBarController.swift in Sources */,
+				6A243AFE1E60505B00AC0D40 /* AirBarState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +320,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A243ADE1E6032C600AC0D40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A243AE71E6032C600AC0D40 /* ViewController.swift in Sources */,
+				6A243AE51E6032C600AC0D40 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -217,7 +337,31 @@
 			target = 6A243AC31E6028D500AC0D40 /* AirBar */;
 			targetProxy = 6A243ACF1E6028D500AC0D40 /* PBXContainerItemProxy */;
 		};
+		6A243AFC1E60482100AC0D40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A243AC31E6028D500AC0D40 /* AirBar */;
+			targetProxy = 6A243AFB1E60482100AC0D40 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6A243AE81E6032C600AC0D40 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A243AE91E6032C600AC0D40 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6A243AED1E6032C600AC0D40 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A243AEE1E6032C600AC0D40 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6A243AD61E6028D500AC0D40 /* Debug */ = {
@@ -322,6 +466,7 @@
 		6A243AD91E6028D500AC0D40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ESG9RMF2GN;
@@ -335,6 +480,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.uptech.AirBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -342,6 +488,7 @@
 		6A243ADA1E6028D500AC0D40 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ESG9RMF2GN;
@@ -362,6 +509,7 @@
 		6A243ADC1E6028D500AC0D40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = ESG9RMF2GN;
 				INFOPLIST_FILE = AirBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -374,10 +522,39 @@
 		6A243ADD1E6028D500AC0D40 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = ESG9RMF2GN;
 				INFOPLIST_FILE = AirBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uptech.AirBarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		6A243AF21E6032C600AC0D40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ESG9RMF2GN;
+				INFOPLIST_FILE = AirBarExampleApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.uptech.AirBarExampleApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		6A243AF31E6032C600AC0D40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ESG9RMF2GN;
+				INFOPLIST_FILE = AirBarExampleApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.uptech.AirBarExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -408,6 +585,14 @@
 			buildConfigurations = (
 				6A243ADC1E6028D500AC0D40 /* Debug */,
 				6A243ADD1E6028D500AC0D40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6A243AF11E6032C600AC0D40 /* Build configuration list for PBXNativeTarget "AirBarExampleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A243AF21E6032C600AC0D40 /* Debug */,
+				6A243AF31E6032C600AC0D40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
