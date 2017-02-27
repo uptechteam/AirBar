@@ -8,49 +8,27 @@
 
 import UIKit
 
-public struct AirBarControllerConfiguration {
-  public let normalStateHeight: CGFloat
-  public let compactStateHeight: CGFloat?
-  public let expandedStateHeight: CGFloat?
-
-  public init(normalStateHeight: CGFloat, compactStateHeight: CGFloat? = nil, expandedStateHeight: CGFloat? = nil) {
-    self.normalStateHeight = normalStateHeight
-    self.compactStateHeight = compactStateHeight
-    self.expandedStateHeight = expandedStateHeight
-
-    if let compactStateHeight = compactStateHeight {
-      assert(compactStateHeight < normalStateHeight, "Compact state height must be lower then normal state height.")
-    }
-
-    if let expandedStateHeight = expandedStateHeight {
-      assert(normalStateHeight < expandedStateHeight, "Expanded state height must be bigger then normal state height.")
-    }
-  }
-
-  func height(for state: AirBarState) -> CGFloat? {
-    switch state {
-    case .normal:
-      return normalStateHeight
-    case .compact:
-      return compactStateHeight
-    case .expanded:
-      return expandedStateHeight
-    }
-  }
-}
-
 public protocol AirBarControllerDelegate: class {
-  func airBarController(_ controller: AirBarController, didChangeStateTo state: CGFloat)
+  /// Delegate method is called when AirBarController changes its internal state.
+  /// You should implement this method and do all view changes according to state and height arguments.
+  /// State is >= 0 and <= 2, where 0 is compact state, 1 is normal state and 2 is expanded state.
+  ///
+  /// - Parameters:
+  ///   - controller: AirBarController object.
+  ///   - state: AirBarController internal state.
+  ///   - height: AirBarController recommended view height.
+  func airBarController(_ controller: AirBarController, didChangeStateTo state: CGFloat, withHeight height: CGFloat)
 }
 
 public class AirBarController: NSObject {
 
   // MARK: - Public Properties
 
+  /// AirBarController delegate object. Sends initial state value on didSet, so consider setting delegate after loading views.
   public weak var delegate: AirBarControllerDelegate? {
     didSet {
       // Send initial values.
-      delegate?.airBarController(self, didChangeStateTo: state)
+      informDelegateAboutStateChanges()
     }
   }
 
@@ -62,14 +40,12 @@ public class AirBarController: NSObject {
         return
       }
 
-      delegate?.airBarController(self, didChangeStateTo: state)
+      informDelegateAboutStateChanges()
     }
   }
   
   private weak var scrollView: UIScrollView?
-
   private let configuration: AirBarControllerConfiguration
-
   private var previousYOffset: CGFloat?
   private var currentExpandedStateAvailability = false
 
@@ -78,17 +54,52 @@ public class AirBarController: NSObject {
 
   // MARK: - Lifecycle
 
+  /// Initializes AirBarController object.
+  ///
+  /// - Parameters:
+  ///   - scrollView: UIScrollView object to observe.
+  ///   - configuration: AirBarControllerConfiguration object.
   public init(scrollView: UIScrollView, configuration: AirBarControllerConfiguration) {
     self.scrollView = scrollView
     self.configuration = configuration
 
     super.init()
 
-    scrollView.topContentInset = configuration.normalStateHeight
-    scrollView.scrollIndicatorInsets = UIEdgeInsets(top: configuration.normalStateHeight, left: 0, bottom: 0, right: 0)
-    scrollView.setContentOffset(CGPoint(x: 0, y: -configuration.normalStateHeight), animated: false)
+    // AirBarControllerConfiguration preconditions.
 
-    setupScrollViewObserving()
+    precondition(configuration.normalStateHeight > 0, "Normal state height must be greater then zero.")
+    precondition(configuration.height(for: configuration.initialState) != nil, "Height for initial state must be provided.")
+
+    if let expandedStateHeight = configuration.expandedStateHeight {
+      precondition(expandedStateHeight > 0, "Expanded state height must be greater then zero.")
+      precondition(expandedStateHeight > configuration.normalStateHeight, "Expanded state height must be greater then normal state height.")
+    }
+
+    if let compactStateHeight = configuration.compactStateHeight {
+      precondition(compactStateHeight > 0, "Compact state height must be greater then zero.")
+      precondition(compactStateHeight < configuration.normalStateHeight, "Compact state height must be lower then normal state height.")
+    }
+
+    // Setup.
+
+    scrollView.panGestureRecognizer.addTarget(self, action: #selector(handleScrollViewPanGesture(_:)))
+    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: [.initial, .new], context: &observerContext)
+    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: [.initial, .new], context: &observerContext)
+
+    switch configuration.initialState {
+    case .expanded:
+      currentExpandedStateAvailability = true
+      scrollView.topContentInset = configuration.expandedStateHeight!
+      setContentOffsetY(-configuration.expandedStateHeight!, animated: false)
+    case .normal:
+      scrollView.topContentInset = configuration.normalStateHeight
+      setContentOffsetY(-configuration.normalStateHeight, animated: false)
+    case .compact:
+      scrollView.topContentInset = configuration.normalStateHeight
+      setContentOffsetY(-configuration.compactStateHeight!, animated: false)
+    }
+
+    scrollView.scrollIndicatorInsets = UIEdgeInsets(top: configuration.normalStateHeight, left: 0, bottom: 0, right: 0)
   }
 
   deinit {
@@ -97,13 +108,31 @@ public class AirBarController: NSObject {
     scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: &observerContext)
   }
 
+  // MARK: - Public Methods
+
+  /// Expands or concats AirBarController.
+  ///
+  /// - Parameter on: Determines to expand or concat.
+  public func expand(on: Bool) {
+    guard
+      let expandedStateHeight = configuration.expandedStateHeight
+    else {
+      return
+    }
+
+    currentExpandedStateAvailability = true
+    setContentOffsetY(on ? -expandedStateHeight : -configuration.normalStateHeight)
+  }
+
   // MARK: - Internal Helpers
 
   private func panGestureBegan() {
     guard let scrollView = scrollView else { return }
 
-    currentExpandedStateAvailability = (configuration.expandedStateHeight != nil && scrollView.contentOffset.y == -configuration.normalStateHeight) ||
-      (currentExpandedStateAvailability && scrollView.contentOffset.y <= -configuration.normalStateHeight)
+    let shouldInitialExpand = configuration.expandedStateHeight != nil && scrollView.contentOffset.y.isNear(to: -configuration.normalStateHeight, delta: 2)
+    let shouldContinueExpand = currentExpandedStateAvailability && scrollView.contentOffset.y <= -configuration.normalStateHeight
+
+    currentExpandedStateAvailability = shouldInitialExpand || shouldContinueExpand
 
     if
       currentExpandedStateAvailability,
@@ -119,21 +148,29 @@ public class AirBarController: NSObject {
     guard
       let scrollView = scrollView,
       let roundedState = AirBarState(rawValue: state.rounded(.toNearestOrEven))
-      else {
-        return
-    }
-
-    if
-      scrollView.contentOffset.y <= -configuration.normalStateHeight,
-      let height = configuration.height(for: roundedState)
-    {
-      setContentOffset(CGPoint(x: 0, y: -height))
+    else {
       return
     }
 
+    if
+      currentExpandedStateAvailability,
+      scrollView.contentOffset.y <= -configuration.normalStateHeight,
+      let height = configuration.height(for: roundedState)
+    {
+      // Normal - Expanded.
+
+      setContentOffsetY(-height)
+      return
+    }
+
+    // Compact - Normal.
+
     let stateRemainder = state.truncatingRemainder(dividingBy: 1)
-    if stateRemainder != 0,
-      let compactStateHeight = configuration.compactStateHeight {
+
+    if
+      stateRemainder != 0,
+      let compactStateHeight = configuration.compactStateHeight
+    {
       let yOffsetDelta: CGFloat
       if stateRemainder < 0.5 {
         yOffsetDelta = (configuration.normalStateHeight - compactStateHeight) * stateRemainder
@@ -141,12 +178,11 @@ public class AirBarController: NSObject {
         yOffsetDelta = -(configuration.normalStateHeight - compactStateHeight) * (1 - stateRemainder)
       }
 
-      let newContentOffset = CGPoint(x: scrollView.contentOffset.x, y: scrollView.contentOffset.y + yOffsetDelta)
-      setContentOffset(newContentOffset)
+      setContentOffsetY(scrollView.contentOffset.y + yOffsetDelta)
     }
   }
 
-  private func scrollViewContentOffsetChanged(to contentOffset: CGPoint) {
+  private func scrollViewContentOffsetChanged() {
     guard
       let scrollView = scrollView
     else {
@@ -158,7 +194,9 @@ public class AirBarController: NSObject {
       scrollView.contentOffset.y < -configuration.normalStateHeight,
       let expandedStateHeight = configuration.expandedStateHeight
     {
-      state = contentOffset.y
+      // Normal - Expanded.
+
+      state = scrollView.contentOffset.y
         .map(
           from: (-expandedStateHeight, -configuration.normalStateHeight),
           to: (AirBarState.expanded.rawValue, AirBarState.normal.rawValue)
@@ -168,9 +206,12 @@ public class AirBarController: NSObject {
       return 
     }
 
-    guard let compactStateHeight = configuration.compactStateHeight else { return }
+    // Compact - Normal.
 
-    if let previousYOffset = previousYOffset {
+    if
+      let previousYOffset = previousYOffset,
+      let compactStateHeight = configuration.compactStateHeight
+    {
       var deltaY = previousYOffset - scrollView.contentOffset.y
 
       let start = -scrollView.contentInset.top
@@ -190,23 +231,31 @@ public class AirBarController: NSObject {
       let deltaState = deltaY.map(from: (-compactNormalDelta, compactNormalDelta), to: (-stateDelta, stateDelta))
       let newState = state + deltaState
       state = newState.bounded(by: (AirBarState.compact.rawValue, AirBarState.normal.rawValue))
+    } else {
+      state = AirBarState.normal.rawValue
     }
 
-    previousYOffset = contentOffset.y
+    previousYOffset = scrollView.contentOffset.y
   }
 
-  private func scrollViewContentSizeChanged(to contentSize: CGSize) {
+  private func scrollViewContentSizeChanged() {
+    guard let scrollView = scrollView else { return }
 
+    if scrollView.contentSize.height < scrollView.frame.height - (configuration.compactStateHeight ?? configuration.normalStateHeight) {
+      scrollView.bottomContentInset = scrollView.frame.height - (configuration.compactStateHeight ?? configuration.normalStateHeight) - scrollView.contentSize.height
+    } else {
+      scrollView.bottomContentInset = 0
+    }
   }
 
-  private func setContentOffset(_ contentOffset: CGPoint, animated: Bool = true) {
+  private func setContentOffsetY(_ y: CGFloat, animated: Bool = true) {
     guard let scrollView = scrollView else { return }
 
     // Stop native deceleration. 
     scrollView.setContentOffset(scrollView.contentOffset, animated: false)
 
     let animate = {
-      scrollView.contentOffset = contentOffset
+      scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: y)
     }
 
     guard animated else {
@@ -214,18 +263,32 @@ public class AirBarController: NSObject {
       return
     }
 
-    UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: animate, completion: nil)
+    UIView.animate(withDuration: 0.25, delay: 0, options: [], animations: animate, completion: nil)
   }
 
-  // MARK: - Observing
+  // MARK: - Delegate Helpers
 
-  private func setupScrollViewObserving() {
-    guard let scrollView = scrollView else { return }
+  private func informDelegateAboutStateChanges() {
+    let currentHeight: CGFloat
 
-    scrollView.panGestureRecognizer.addTarget(self, action: #selector(handleScrollViewPanGesture(_:)))
-    scrollView.addObserver(self, forKeyPath: "contentSize", options: [.initial, .new], context: &observerContext)
-    scrollView.addObserver(self, forKeyPath: "contentOffset", options: [.initial, .new], context: &observerContext)
+    if
+      state > AirBarState.normal.rawValue,
+      let expandedStateHeight = configuration.expandedStateHeight
+    {
+      // Normal - Expanded
+      currentHeight = state.map(from: (AirBarState.normal.rawValue, AirBarState.expanded.rawValue), to: (configuration.normalStateHeight, expandedStateHeight))
+    } else if let compactStateHeight = configuration.compactStateHeight {
+      // Compact - Normal
+      currentHeight = state.map(from: (AirBarState.compact.rawValue, AirBarState.normal.rawValue), to: (compactStateHeight, configuration.normalStateHeight))
+    } else {
+      // Normal
+      currentHeight = configuration.normalStateHeight
+    }
+
+    delegate?.airBarController(self, didChangeStateTo: state, withHeight: currentHeight)
   }
+
+  // MARK: - User Interaction
 
   @objc private func handleScrollViewPanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
     switch gestureRecognizer.state {
@@ -238,65 +301,21 @@ public class AirBarController: NSObject {
     }
   }
 
+  // MARK: - KVO
+
   override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    guard context == &observerContext else {
+    guard
+      context == &observerContext
+    else {
       super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
       return
     }
 
-    if keyPath == "contentOffset",
-      let contentOffset = (change?[.newKey] as? NSValue)?.cgPointValue
-    {
-      // ContentOffset
-      scrollViewContentOffsetChanged(to: contentOffset)
-    } else if keyPath == "contentSize",
-      let contentSize = (change?[.newKey] as? NSValue)?.cgSizeValue
-    {
-      // ContentSize
-      scrollViewContentSizeChanged(to: contentSize)
+    if keyPath == #keyPath(UIScrollView.contentOffset) {
+      scrollViewContentOffsetChanged()
+    } else if keyPath == #keyPath(UIScrollView.contentSize) {
+      scrollViewContentSizeChanged()
     }
   }
 
-}
-
-// MARK: - UIScrollView+Helpers
-
-private extension UIScrollView {
-  var topContentInset: CGFloat {
-    get {
-      return contentInset.top
-    }
-
-    set {
-      contentInset = UIEdgeInsets(
-        top: newValue,
-        left: contentInset.left,
-        bottom: contentInset.bottom,
-        right: contentInset.right
-      )
-    }
-  }
-}
-
-// MARK: - CGFloat+Helpers
-
-private extension CGFloat {
-  func map(from firstBounds: (CGFloat, CGFloat), to secondBounds: (CGFloat, CGFloat)) -> CGFloat {
-    guard self > firstBounds.0 else {
-      return secondBounds.0
-    }
-
-    guard self < firstBounds.1 else {
-      return secondBounds.1
-    }
-
-    let firstBoundsDelta = firstBounds.1 - firstBounds.0
-    let ratio = (self - firstBounds.0) / firstBoundsDelta
-    return secondBounds.0 + ratio * (secondBounds.1 - secondBounds.0)
-  }
-
-  func bounded(by bounds: (CGFloat, CGFloat)) -> CGFloat {
-    return Swift.max(bounds.0, Swift.min(bounds.1, self))
-  }
-  
 }

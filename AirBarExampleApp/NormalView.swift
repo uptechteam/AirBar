@@ -9,5 +9,5 @@
 import UIKit
 
 class NormalView: UIView {
-
+  @IBOutlet weak var searchTapGestureRecognizer: UITapGestureRecognizer!
 }

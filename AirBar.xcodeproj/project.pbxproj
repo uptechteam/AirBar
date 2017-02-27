@@ -22,6 +22,11 @@
 		6A243B021E60D77F00AC0D40 /* NormalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A243B011E60D77F00AC0D40 /* NormalView.xib */; };
 		6A243B041E60DABD00AC0D40 /* ExpandedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A243B031E60DABD00AC0D40 /* ExpandedView.xib */; };
 		6A243B061E60E28300AC0D40 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243B051E60E28300AC0D40 /* Helpers.swift */; };
+		6A243B081E616C0F00AC0D40 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A243B071E616C0F00AC0D40 /* MenuView.xib */; };
+		6A243B0B1E616D3D00AC0D40 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243B0A1E616D3D00AC0D40 /* MenuView.swift */; };
+		6A47D35E1E6419250076D0F8 /* CGFloat+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */; };
+		6A47D3601E6419430076D0F8 /* UIScrollView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A47D35F1E6419430076D0F8 /* UIScrollView+Helpers.swift */; };
+		6A882E521E62C78E000BD55E /* AirBarControllerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A882E511E62C78E000BD55E /* AirBarControllerConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +80,11 @@
 		6A243B011E60D77F00AC0D40 /* NormalView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NormalView.xib; sourceTree = "<group>"; };
 		6A243B031E60DABD00AC0D40 /* ExpandedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandedView.xib; sourceTree = "<group>"; };
 		6A243B051E60E28300AC0D40 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		6A243B071E616C0F00AC0D40 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
+		6A243B0A1E616D3D00AC0D40 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Helpers.swift"; sourceTree = "<group>"; };
+		6A47D35F1E6419430076D0F8 /* UIScrollView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Helpers.swift"; sourceTree = "<group>"; };
+		6A882E511E62C78E000BD55E /* AirBarControllerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirBarControllerConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +141,8 @@
 				6A243AC71E6028D500AC0D40 /* AirBar.h */,
 				6A243AF91E6035B200AC0D40 /* AirBarController.swift */,
 				6A243AFD1E60505B00AC0D40 /* AirBarState.swift */,
+				6A882E511E62C78E000BD55E /* AirBarControllerConfiguration.swift */,
+				6A47D3611E6419550076D0F8 /* Helpers */,
 				6A243AF61E60355600AC0D40 /* Resources */,
 			);
 			path = AirBar;
@@ -150,14 +162,9 @@
 			children = (
 				6A243AE41E6032C600AC0D40 /* AppDelegate.swift */,
 				6A243AE61E6032C600AC0D40 /* ViewController.swift */,
-				6A243AFF1E60D76F00AC0D40 /* NormalView.swift */,
-				6A243B011E60D77F00AC0D40 /* NormalView.xib */,
-				6A243B031E60DABD00AC0D40 /* ExpandedView.xib */,
 				6A243B051E60E28300AC0D40 /* Helpers.swift */,
-				6A243AE81E6032C600AC0D40 /* Main.storyboard */,
-				6A243AEB1E6032C600AC0D40 /* Assets.xcassets */,
-				6A243AED1E6032C600AC0D40 /* LaunchScreen.storyboard */,
-				6A243AF01E6032C600AC0D40 /* Info.plist */,
+				6A243B091E616C1700AC0D40 /* Views */,
+				6A47D3621E6423330076D0F8 /* Resources */,
 			);
 			path = AirBarExampleApp;
 			sourceTree = "<group>";
@@ -166,6 +173,38 @@
 			isa = PBXGroup;
 			children = (
 				6A243AC81E6028D500AC0D40 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		6A243B091E616C1700AC0D40 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6A243AE81E6032C600AC0D40 /* Main.storyboard */,
+				6A243B0A1E616D3D00AC0D40 /* MenuView.swift */,
+				6A243B071E616C0F00AC0D40 /* MenuView.xib */,
+				6A243AFF1E60D76F00AC0D40 /* NormalView.swift */,
+				6A243B011E60D77F00AC0D40 /* NormalView.xib */,
+				6A243B031E60DABD00AC0D40 /* ExpandedView.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6A47D3611E6419550076D0F8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */,
+				6A47D35F1E6419430076D0F8 /* UIScrollView+Helpers.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		6A47D3621E6423330076D0F8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6A243AED1E6032C600AC0D40 /* LaunchScreen.storyboard */,
+				6A243AEB1E6032C600AC0D40 /* Assets.xcassets */,
+				6A243AF01E6032C600AC0D40 /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -251,7 +290,7 @@
 				TargetAttributes = {
 					6A243AC31E6028D500AC0D40 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = ESG9RMF2GN;
+						DevelopmentTeam = 454YRFDL2R;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -262,7 +301,7 @@
 					};
 					6A243AE11E6032C600AC0D40 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = ESG9RMF2GN;
+						DevelopmentTeam = 454YRFDL2R;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -307,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A243AEF1E6032C600AC0D40 /* LaunchScreen.storyboard in Resources */,
+				6A243B081E616C0F00AC0D40 /* MenuView.xib in Resources */,
 				6A243AEC1E6032C600AC0D40 /* Assets.xcassets in Resources */,
 				6A243AEA1E6032C600AC0D40 /* Main.storyboard in Resources */,
 				6A243B041E60DABD00AC0D40 /* ExpandedView.xib in Resources */,
@@ -322,7 +362,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A243AFA1E6035B200AC0D40 /* AirBarController.swift in Sources */,
+				6A47D3601E6419430076D0F8 /* UIScrollView+Helpers.swift in Sources */,
 				6A243AFE1E60505B00AC0D40 /* AirBarState.swift in Sources */,
+				6A47D35E1E6419250076D0F8 /* CGFloat+Helpers.swift in Sources */,
+				6A882E521E62C78E000BD55E /* AirBarControllerConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A243B0B1E616D3D00AC0D40 /* MenuView.swift in Sources */,
 				6A243B001E60D76F00AC0D40 /* NormalView.swift in Sources */,
 				6A243AE71E6032C600AC0D40 /* ViewController.swift in Sources */,
 				6A243AE51E6032C600AC0D40 /* AppDelegate.swift in Sources */,
@@ -485,13 +529,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ESG9RMF2GN;
+				DEVELOPMENT_TEAM = 454YRFDL2R;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AirBar/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uptech.AirBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -507,13 +551,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ESG9RMF2GN;
+				DEVELOPMENT_TEAM = 454YRFDL2R;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AirBar/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uptech.AirBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -553,8 +597,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ESG9RMF2GN;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 454YRFDL2R;
 				INFOPLIST_FILE = AirBarExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uptech.AirBarExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -567,8 +613,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ESG9RMF2GN;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 454YRFDL2R;
 				INFOPLIST_FILE = AirBarExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uptech.AirBarExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -595,6 +643,7 @@
 				6A243ADA1E6028D500AC0D40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6A243ADB1E6028D500AC0D40 /* Build configuration list for PBXNativeTarget "AirBarTests" */ = {
 			isa = XCConfigurationList;
@@ -603,6 +652,7 @@
 				6A243ADD1E6028D500AC0D40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6A243AF11E6032C600AC0D40 /* Build configuration list for PBXNativeTarget "AirBarExampleApp" */ = {
 			isa = XCConfigurationList;
@@ -611,6 +661,7 @@
 				6A243AF31E6032C600AC0D40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

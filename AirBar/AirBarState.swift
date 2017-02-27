@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum AirBarState: CGFloat {
+public enum AirBarState: CGFloat {
   case compact = 0
   case normal = 1
   case expanded = 2
