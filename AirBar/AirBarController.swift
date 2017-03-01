@@ -145,47 +145,36 @@ public class AirBarController: NSObject {
   }
 
   private func panGestureEnded() {
-    guard
-      let scrollView = scrollView,
-      let roundedState = AirBarState(rawValue: state.rounded(.toNearestOrEven))
-    else {
-      return
-    }
-
-    if
-      currentExpandedStateAvailability,
-      scrollView.contentOffset.y <= -configuration.normalStateHeight,
-      let height = configuration.height(for: roundedState)
-    {
-      // Normal - Expanded.
-
-      if
-        let expandedStateHeight = configuration.expandedStateHeight,
-        scrollView.contentOffset.y <= -expandedStateHeight
-      {
-        return
-      }
-
-      setContentOffsetY(-height)
-      return
-    }
-
-    // Compact - Normal.
+    guard let scrollView = scrollView else { return }
 
     let stateRemainder = state.truncatingRemainder(dividingBy: 1)
 
     if
-      stateRemainder != 0,
-      let compactStateHeight = configuration.compactStateHeight
+      stateRemainder != 0
     {
-      let yOffsetDelta: CGFloat
-      if stateRemainder < 0.5 {
-        yOffsetDelta = (configuration.normalStateHeight - compactStateHeight) * stateRemainder
+      let stateHeightDelta: CGFloat?
+
+      if
+        state > AirBarState.normal.rawValue,
+        let expandedStateHeight = configuration.expandedStateHeight
+      {
+        stateHeightDelta = expandedStateHeight - configuration.normalStateHeight
+      } else if let compactStateHeight = configuration.compactStateHeight {
+        stateHeightDelta = configuration.normalStateHeight - compactStateHeight
       } else {
-        yOffsetDelta = -(configuration.normalStateHeight - compactStateHeight) * (1 - stateRemainder)
+        stateHeightDelta = nil
       }
 
-      setContentOffsetY(scrollView.contentOffset.y + yOffsetDelta)
+      if let stateHeightDelta = stateHeightDelta {
+        let yOffsetDelta: CGFloat
+        if stateRemainder < 0.5 {
+          yOffsetDelta = stateHeightDelta * stateRemainder
+        } else {
+          yOffsetDelta = -stateHeightDelta * (1 - stateRemainder)
+        }
+
+        setContentOffsetY(scrollView.contentOffset.y + yOffsetDelta)
+      }
     }
   }
 
