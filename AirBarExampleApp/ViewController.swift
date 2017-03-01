@@ -51,8 +51,6 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    tableView.dataSource = self
-
     backgroundView = UIImageView(image: #imageLiteral(resourceName: "grad"))
 
     darkMenuView = UINib(nibName: "MenuView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! MenuView
@@ -74,10 +72,9 @@ class ViewController: UIViewController {
 
     airBar = UIView()
     airBar.backgroundColor = UIColor.white
-    airBar.layer.masksToBounds = false
-    airBar.layer.shadowRadius = 4
-    airBar.layer.shadowOpacity = 0.35
     airBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+    airBar.layer.shadowRadius = 4
+    airBar.layer.shadowOpacity = 0.4
 
     airBar.addSubview(backgroundView)
     airBar.addSubview(darkMenuView)
@@ -95,6 +92,9 @@ class ViewController: UIViewController {
     )
     airBarController = AirBarController(scrollView: tableView, configuration: configuration)
     airBarController.delegate = self
+
+    tableView.delegate = self
+    tableView.dataSource = self
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -141,9 +141,9 @@ class ViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension ViewController: UITableViewDataSource {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 20
+    return 30
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -193,9 +193,9 @@ extension ViewController: AirBarControllerDelegate {
     airBar.frame = airBarFrame
     backgroundView.frame = airBarFrame
     backgroundView.alpha = backgroundViewAlpha
-    normalView.frame = CGRect(x: 0, y: normalViewY, width: view.frame.width, height: height - normalViewY - (height - menuViewY))
+    normalView.frame = CGRect(x: 0, y: normalViewY, width: view.frame.width, height: view.frame.height)
     normalView.alpha = normalViewAlpha
-    expandedView.frame = CGRect(x: 0, y: expandedViewY, width: view.frame.width, height: height - expandedViewY - (height - menuViewY))
+    expandedView.frame = CGRect(x: 0, y: expandedViewY, width: view.frame.width, height: menuViewY - expandedViewY)
     expandedView.alpha = expandedViewAlpha
     backButton.alpha = backButtonAlpha
     lightMenuView.alpha = lightMenuViewAlpha

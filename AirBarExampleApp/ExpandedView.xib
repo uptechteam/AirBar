@@ -10,120 +10,87 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ExpandedView" customModule="AirBarExampleApp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vmQ-82-3iE">
-                    <rect key="frame" x="20" y="0.0" width="335" height="42"/>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmQ-82-3iE">
+                    <rect key="frame" x="20" y="0.0" width="119.5" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="place" translatesAutoresizingMaskIntoConstraints="NO" id="eiW-71-DdN">
-                            <rect key="frame" x="10" y="9.5" width="23" height="23"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="23" id="sLk-Z3-Hut"/>
-                                <constraint firstAttribute="height" constant="23" id="v50-1o-EaY"/>
-                            </constraints>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="place" translatesAutoresizingMaskIntoConstraints="NO" id="eiW-71-DdN">
+                            <rect key="frame" x="10" y="10" width="23" height="23"/>
+                            <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anywhere" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bt-zq-pY8">
-                            <rect key="frame" x="43" y="12.5" width="282" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Anywhere" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bt-zq-pY8">
+                            <rect key="frame" x="43" y="13" width="66" height="17"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="1bt-zq-pY8" secondAttribute="trailing" constant="10" id="FQP-oQ-SvR"/>
-                        <constraint firstItem="eiW-71-DdN" firstAttribute="centerY" secondItem="vmQ-82-3iE" secondAttribute="centerY" id="MFT-KF-6ZD"/>
-                        <constraint firstItem="1bt-zq-pY8" firstAttribute="centerY" secondItem="vmQ-82-3iE" secondAttribute="centerY" id="OBe-7J-0JK"/>
-                        <constraint firstItem="eiW-71-DdN" firstAttribute="leading" secondItem="vmQ-82-3iE" secondAttribute="leading" constant="10" id="kzh-qC-F6E"/>
-                        <constraint firstItem="1bt-zq-pY8" firstAttribute="leading" secondItem="eiW-71-DdN" secondAttribute="trailing" constant="10" id="tBs-yZ-U5m"/>
-                        <constraint firstAttribute="height" constant="42" id="ycW-xF-dbz"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="4"/>
+                            <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FwD-u8-kGk">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FwD-u8-kGk">
                     <rect key="frame" x="20" y="50" width="335" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="icI-XA-ehb">
-                            <rect key="frame" x="10" y="9.5" width="23" height="23"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="23" id="SPh-Kf-G8c"/>
-                                <constraint firstAttribute="width" constant="23" id="jMF-iJ-Gbs"/>
-                            </constraints>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="icI-XA-ehb">
+                            <rect key="frame" x="10" y="10" width="23" height="23"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anytime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMn-x3-ed9">
-                            <rect key="frame" x="43" y="12.5" width="282" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Anytime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMn-x3-ed9">
+                            <rect key="frame" x="43" y="13" width="282" height="17"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="GMn-x3-ed9" firstAttribute="leading" secondItem="icI-XA-ehb" secondAttribute="trailing" constant="10" id="GYR-tp-eIT"/>
-                        <constraint firstItem="GMn-x3-ed9" firstAttribute="centerY" secondItem="FwD-u8-kGk" secondAttribute="centerY" id="JQP-Qc-awG"/>
-                        <constraint firstAttribute="trailing" secondItem="GMn-x3-ed9" secondAttribute="trailing" constant="10" id="P16-Iq-fb6"/>
-                        <constraint firstAttribute="height" constant="42" id="P3q-Cg-WL9"/>
-                        <constraint firstItem="icI-XA-ehb" firstAttribute="leading" secondItem="FwD-u8-kGk" secondAttribute="leading" constant="10" id="pDj-cP-7Am"/>
-                        <constraint firstItem="icI-XA-ehb" firstAttribute="centerY" secondItem="FwD-u8-kGk" secondAttribute="centerY" id="xKa-mb-qiQ"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="4"/>
+                            <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lu8-r6-fMr">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lu8-r6-fMr">
                     <rect key="frame" x="20" y="100" width="335" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guest" translatesAutoresizingMaskIntoConstraints="NO" id="ume-89-DzH">
-                            <rect key="frame" x="10" y="9.5" width="23" height="23"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="23" id="Jwq-Cq-j7a"/>
-                                <constraint firstAttribute="height" constant="23" id="xUN-Ry-jsu"/>
-                            </constraints>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="guest" translatesAutoresizingMaskIntoConstraints="NO" id="ume-89-DzH">
+                            <rect key="frame" x="10" y="10" width="23" height="23"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 guests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qc3-ah-Oaj">
-                            <rect key="frame" x="43" y="12.5" width="282" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2 guests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qc3-ah-Oaj">
+                            <rect key="frame" x="43" y="13" width="282" height="16"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="ume-89-DzH" firstAttribute="leading" secondItem="lu8-r6-fMr" secondAttribute="leading" constant="10" id="5gd-5Z-jbA"/>
-                        <constraint firstAttribute="trailing" secondItem="qc3-ah-Oaj" secondAttribute="trailing" constant="10" id="N43-tB-Dcj"/>
-                        <constraint firstItem="ume-89-DzH" firstAttribute="centerY" secondItem="lu8-r6-fMr" secondAttribute="centerY" id="f3J-rc-oOX"/>
-                        <constraint firstAttribute="height" constant="42" id="j08-SK-d5s"/>
-                        <constraint firstItem="qc3-ah-Oaj" firstAttribute="leading" secondItem="ume-89-DzH" secondAttribute="trailing" constant="10" id="q7M-Yh-jv0"/>
-                        <constraint firstItem="qc3-ah-Oaj" firstAttribute="centerY" secondItem="lu8-r6-fMr" secondAttribute="centerY" id="xmN-tw-fgA"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="4"/>
+                            <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="vmQ-82-3iE" secondAttribute="trailing" constant="20" id="49T-az-FgJ"/>
-                <constraint firstItem="FwD-u8-kGk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="5iz-n5-xgP"/>
-                <constraint firstItem="vmQ-82-3iE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="GgH-wq-0Cz"/>
-                <constraint firstItem="lu8-r6-fMr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="HWZ-1o-cgQ"/>
-                <constraint firstItem="lu8-r6-fMr" firstAttribute="top" secondItem="FwD-u8-kGk" secondAttribute="bottom" constant="8" id="UWp-KZ-T1G"/>
-                <constraint firstItem="vmQ-82-3iE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="iC9-sX-GLu"/>
-                <constraint firstAttribute="trailing" secondItem="lu8-r6-fMr" secondAttribute="trailing" constant="20" id="ltY-hn-dvu"/>
-                <constraint firstItem="FwD-u8-kGk" firstAttribute="top" secondItem="vmQ-82-3iE" secondAttribute="bottom" constant="8" id="ml0-4F-hsa"/>
-                <constraint firstAttribute="trailing" secondItem="FwD-u8-kGk" secondAttribute="trailing" constant="20" id="ui3-Oe-aKN"/>
-            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="guestsContainerView" destination="lu8-r6-fMr" id="BU3-TB-fFL"/>
+                <outlet property="placeContainerView" destination="vmQ-82-3iE" id="M4n-xU-cGA"/>
+                <outlet property="timeContainerView" destination="FwD-u8-kGk" id="Znp-q2-gnN"/>
+            </connections>
             <point key="canvasLocation" x="33.5" y="55"/>
         </view>
     </objects>

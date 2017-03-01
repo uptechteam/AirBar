@@ -159,6 +159,13 @@ public class AirBarController: NSObject {
     {
       // Normal - Expanded.
 
+      if
+        let expandedStateHeight = configuration.expandedStateHeight,
+        scrollView.contentOffset.y <= -expandedStateHeight
+      {
+        return
+      }
+
       setContentOffsetY(-height)
       return
     }
@@ -262,8 +269,10 @@ public class AirBarController: NSObject {
       animate()
       return
     }
+    
+    let duration = Double(abs(scrollView.contentOffset.y - y) / configuration.scrollSpeed)
 
-    UIView.animate(withDuration: 0.25, delay: 0, options: [], animations: animate, completion: nil)
+    UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseOut], animations: animate, completion: nil)
   }
 
   // MARK: - Delegate Helpers

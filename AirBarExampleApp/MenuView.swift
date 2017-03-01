@@ -17,3 +17,4 @@ class MenuView: UIView {
       .forEach { $0.textColor = light ? UIColor.white : UIColor.black }
   }
 }
+
