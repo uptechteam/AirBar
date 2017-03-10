@@ -13,7 +13,6 @@ public struct AirBarControllerConfiguration {
   public let compactStateHeight: CGFloat?
   public let expandedStateHeight: CGFloat?
   public let initialState: AirBarState
-  public let scrollSpeed: CGFloat
 
   /// Initializes AirBarController configuration object.
   /// Configuration must provide state height for selected initial state.
