@@ -258,8 +258,6 @@ public class AirBarController: NSObject {
       animate()
       return
     }
-    
-    let duration = Double(abs(scrollView.contentOffset.y - y) / configuration.scrollSpeed)
 
     UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseOut], animations: animate, completion: nil)
   }
