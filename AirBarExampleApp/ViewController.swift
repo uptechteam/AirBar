@@ -14,6 +14,7 @@ class ViewController: UIViewController {
   // MARK: - Outlets
 
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var reloadButton: UIButton!
 
   // MARK: - Private Properties
 
@@ -45,6 +46,8 @@ class ViewController: UIViewController {
     static let compactStateHeight: CGFloat = 64
     static let expandedStateHeight: CGFloat = 284
   }
+
+  fileprivate var numberOfItems = 10
 
   // MARK: - View Lifecycle
 
@@ -137,13 +140,18 @@ class ViewController: UIViewController {
   @objc private func handleSearchViewTapped(_ gestureRecognizer: UITapGestureRecognizer) {
     airBarController.expand(on: true)
   }
+
+  @IBAction func handleReloadButtonPressed(_ sender: UIButton) {
+    numberOfItems = 5 + Int(arc4random_uniform(100))
+    tableView.reloadData()
+  }
 }
 
 // MARK: - UITableViewDataSource
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 30
+    return numberOfItems
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

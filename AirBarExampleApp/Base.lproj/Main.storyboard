@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -85,9 +84,31 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQ4-kV-BWf">
+                                <rect key="frame" x="299" y="591" width="60" height="60"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Rh3-Iv-Yh7"/>
+                                    <constraint firstAttribute="width" constant="60" id="uve-Zi-tzg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="R">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="handleReloadButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LhW-NA-NLH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="CQ4-kV-BWf" secondAttribute="trailing" constant="16" id="5C8-Um-EE9"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="CQ4-kV-BWf" secondAttribute="bottom" constant="16" id="5zO-35-KMT"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hX5-xA-oHy" secondAttribute="bottom" id="eSi-ev-ad3"/>
                             <constraint firstItem="hX5-xA-oHy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hiJ-hh-x8n"/>
                             <constraint firstAttribute="trailing" secondItem="hX5-xA-oHy" secondAttribute="trailing" id="kl5-Bh-Rh6"/>
@@ -95,6 +116,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="reloadButton" destination="CQ4-kV-BWf" id="Hzb-jK-X4D"/>
                         <outlet property="tableView" destination="hX5-xA-oHy" id="3D0-FD-tzT"/>
                     </connections>
                 </viewController>
