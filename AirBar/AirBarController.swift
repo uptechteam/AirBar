@@ -32,6 +32,18 @@ public class AirBarController: NSObject {
     }
   }
 
+  public weak var scrollView: UIScrollView? {
+    didSet {
+      if let oldScrollView = oldValue {
+        removeObserving(scrollView: oldScrollView)
+      }
+
+      if let newScrollView = scrollView {
+        configure(scrollView: newScrollView)
+      }
+    }
+  }
+
   // MARK: - Private Properties
 
   private var state = AirBarState.normal.rawValue {
@@ -43,11 +55,11 @@ public class AirBarController: NSObject {
       informDelegateAboutStateChanges()
     }
   }
-  
-  private weak var scrollView: UIScrollView?
+
   private let configuration: AirBarControllerConfiguration
   private var previousYOffset: CGFloat?
   private var currentExpandedStateAvailability = false
+  private var firstScrollViewConfigured = false
 
   // KVO context.
   private var observerContext = 0
@@ -57,10 +69,8 @@ public class AirBarController: NSObject {
   /// Initializes AirBarController object.
   ///
   /// - Parameters:
-  ///   - scrollView: UIScrollView object to observe.
   ///   - configuration: AirBarControllerConfiguration object.
-  public init(scrollView: UIScrollView, configuration: AirBarControllerConfiguration) {
-    self.scrollView = scrollView
+  public init(configuration: AirBarControllerConfiguration) {
     self.configuration = configuration
 
     super.init()
@@ -79,33 +89,12 @@ public class AirBarController: NSObject {
       precondition(compactStateHeight > 0, "Compact state height must be greater then zero.")
       precondition(compactStateHeight < configuration.normalStateHeight, "Compact state height must be lower then normal state height.")
     }
-
-    // Setup.
-
-    scrollView.panGestureRecognizer.addTarget(self, action: #selector(handleScrollViewPanGesture(_:)))
-    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: [.initial, .new], context: &observerContext)
-    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: [.initial, .new], context: &observerContext)
-
-    switch configuration.initialState {
-    case .expanded:
-      currentExpandedStateAvailability = true
-      scrollView.topContentInset = configuration.expandedStateHeight!
-      setContentOffsetY(-configuration.expandedStateHeight!, animated: false)
-    case .normal:
-      scrollView.topContentInset = configuration.normalStateHeight
-      setContentOffsetY(-configuration.normalStateHeight, animated: false)
-    case .compact:
-      scrollView.topContentInset = configuration.normalStateHeight
-      setContentOffsetY(-configuration.compactStateHeight!, animated: false)
-    }
-
-    scrollView.scrollIndicatorInsets = UIEdgeInsets(top: configuration.normalStateHeight, left: 0, bottom: 0, right: 0)
   }
 
   deinit {
-    scrollView?.panGestureRecognizer.removeTarget(self, action: #selector(handleScrollViewPanGesture(_:)))
-    scrollView?.removeObserver(self, forKeyPath: "contentSize", context: &observerContext)
-    scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: &observerContext)
+    if let scrollView = scrollView {
+      removeObserving(scrollView: scrollView)
+    }
   }
 
   // MARK: - Public Methods
@@ -312,6 +301,37 @@ public class AirBarController: NSObject {
     } else if keyPath == #keyPath(UIScrollView.contentSize) {
       scrollViewContentSizeChanged()
     }
+  }
+
+  // MARK: - Scroll view
+  private func configure(scrollView: UIScrollView) {
+    scrollView.panGestureRecognizer.addTarget(self, action: #selector(handleScrollViewPanGesture(_:)))
+    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: [.initial, .new], context: &observerContext)
+    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: [.initial, .new], context: &observerContext)
+    scrollView.scrollIndicatorInsets = UIEdgeInsets(top: configuration.normalStateHeight, left: 0, bottom: 0, right: 0)
+
+    guard !firstScrollViewConfigured else { return }
+
+    switch configuration.initialState {
+    case .expanded:
+      currentExpandedStateAvailability = true
+      scrollView.topContentInset = configuration.expandedStateHeight!
+      setContentOffsetY(-configuration.expandedStateHeight!, animated: false)
+    case .normal:
+      scrollView.topContentInset = configuration.normalStateHeight
+      setContentOffsetY(-configuration.normalStateHeight, animated: false)
+    case .compact:
+      scrollView.topContentInset = configuration.normalStateHeight
+      setContentOffsetY(-configuration.compactStateHeight!, animated: false)
+    }
+
+    firstScrollViewConfigured = true
+  }
+
+  private func removeObserving(scrollView: UIScrollView) {
+    scrollView.panGestureRecognizer.removeTarget(self, action: #selector(handleScrollViewPanGesture(_:)))
+    scrollView.removeObserver(self, forKeyPath: "contentSize", context: &observerContext)
+    scrollView.removeObserver(self, forKeyPath: "contentOffset", context: &observerContext)
   }
 
 }

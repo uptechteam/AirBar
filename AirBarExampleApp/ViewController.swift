@@ -93,8 +93,9 @@ class ViewController: UIViewController {
       expandedStateHeight: Constants.expandedStateHeight,
       initialState: .normal
     )
-    airBarController = AirBarController(scrollView: tableView, configuration: configuration)
+    airBarController = AirBarController(configuration: configuration)
     airBarController.delegate = self
+    airBarController.scrollView = tableView
 
     tableView.delegate = self
     tableView.dataSource = self
