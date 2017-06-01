@@ -310,7 +310,13 @@ public class AirBarController: NSObject {
     scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: [.initial, .new], context: &observerContext)
     scrollView.scrollIndicatorInsets = UIEdgeInsets(top: configuration.normalStateHeight, left: 0, bottom: 0, right: 0)
 
-    guard !firstScrollViewConfigured else { return }
+    previousYOffset = scrollView.contentOffset.y
+    scrollViewContentSizeChanged()
+    scrollViewContentOffsetChanged()
+
+    guard !firstScrollViewConfigured else {
+      return
+    }
 
     switch configuration.initialState {
     case .expanded:
@@ -332,6 +338,7 @@ public class AirBarController: NSObject {
     scrollView.panGestureRecognizer.removeTarget(self, action: #selector(handleScrollViewPanGesture(_:)))
     scrollView.removeObserver(self, forKeyPath: "contentSize", context: &observerContext)
     scrollView.removeObserver(self, forKeyPath: "contentOffset", context: &observerContext)
+    previousYOffset = nil
   }
 
 }
