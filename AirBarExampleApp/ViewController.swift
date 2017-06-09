@@ -13,11 +13,13 @@ class ViewController: UIViewController {
 
   // MARK: - Outlets
 
-  @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var reloadButton: UIButton!
+  @IBOutlet weak var changeButton: UIButton!
 
   // MARK: - Private Properties
 
+  fileprivate var firstTableView: UITableView!
+  fileprivate var secondTableView: UITableView!
   fileprivate var airBar: UIView!
   fileprivate var backgroundView: UIView!
   fileprivate var darkMenuView: MenuView!
@@ -48,11 +50,26 @@ class ViewController: UIViewController {
   }
 
   fileprivate var numberOfItems = 10
+  fileprivate var secondTableViewShown: Bool?
 
   // MARK: - View Lifecycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    firstTableView = UITableView(frame: view.bounds, style: .plain)
+    firstTableView.backgroundColor = UIColor(red: 0.8, green: 0.9, blue: 0.9, alpha: 1)
+    firstTableView.rowHeight = 80
+    registerCells(for: firstTableView)
+    firstTableView.dataSource = self
+    view.insertSubview(firstTableView, at: 0)
+
+    secondTableView = UITableView(frame: view.bounds, style: .plain)
+    secondTableView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.8, alpha: 1)
+    secondTableView.rowHeight = 80
+    registerCells(for: secondTableView)
+    secondTableView.dataSource = self
+    view.insertSubview(secondTableView, at: 0)
 
     backgroundView = UIImageView(image: #imageLiteral(resourceName: "grad"))
 
@@ -95,10 +112,8 @@ class ViewController: UIViewController {
     )
     airBarController = AirBarController(configuration: configuration)
     airBarController.delegate = self
-    airBarController.scrollView = tableView
 
-    tableView.delegate = self
-    tableView.dataSource = self
+    toggleSecondTable(on: false)
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -132,6 +147,37 @@ class ViewController: UIViewController {
     }, completion: nil)
   }
 
+  // MARK: - Table Views
+  private func toggleSecondTable(on: Bool) {
+    let animated = self.secondTableViewShown != nil
+    self.secondTableViewShown = on
+
+    let leftHiddenFrame = CGRect(x: -view.frame.width, y: 0, width: view.frame.width, height: view.frame.height)
+    let rightHiddenFrame = CGRect(x: view.frame.width, y: 0, width: view.frame.width, height: view.frame.height)
+    let shownFrame = view.bounds
+
+    let animate = {
+      self.firstTableView.frame = on ? leftHiddenFrame : shownFrame
+      self.secondTableView.frame = on ? shownFrame : rightHiddenFrame
+    }
+
+    let completion = {
+      self.airBarController.scrollView = on ? self.secondTableView : self.firstTableView
+    }
+
+    guard animated else {
+      animate()
+      completion()
+      return
+    }
+
+    UIView.animate(withDuration: 0.3, animations: animate, completion: { _ in completion() })
+  }
+
+  private func registerCells(for tableView: UITableView) {
+    tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
+  }
+
   // MARK: - User Interaction
 
   @objc private func handleBackButtonPressed(_ button: UIButton) {
@@ -144,7 +190,13 @@ class ViewController: UIViewController {
 
   @IBAction func handleReloadButtonPressed(_ sender: UIButton) {
     numberOfItems = 5 + Int(arc4random_uniform(100))
-    tableView.reloadData()
+    firstTableView.reloadData()
+    secondTableView.reloadData()
+  }
+
+  @IBAction func handleChangeButtonPressed(_ sender: UIButton) {
+    guard let secondTableViewShown = secondTableViewShown else { return }
+    toggleSecondTable(on: !secondTableViewShown)
   }
 }
 
@@ -156,7 +208,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    return tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
   }
 }
 
