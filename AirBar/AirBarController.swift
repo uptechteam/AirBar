@@ -306,8 +306,8 @@ public class AirBarController: NSObject {
   // MARK: - Scroll view
   private func configure(scrollView: UIScrollView) {
     scrollView.panGestureRecognizer.addTarget(self, action: #selector(handleScrollViewPanGesture(_:)))
-    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: [.initial, .new], context: &observerContext)
-    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: [.initial, .new], context: &observerContext)
+    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: [.new], context: &observerContext)
+    scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: [.new], context: &observerContext)
     scrollView.scrollIndicatorInsets = UIEdgeInsets(top: configuration.normalStateHeight, left: 0, bottom: 0, right: 0)
 
     previousYOffset = scrollView.contentOffset.y
