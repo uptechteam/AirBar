@@ -1,5 +1,5 @@
 //
-//  BarConfiguration.swift
+//  Configuration.swift
 //  AirBar
 //
 //  Created by Евгений Матвиенко on 6/23/17.
@@ -20,15 +20,13 @@ public struct Configuration {
     self.normalStateHeight = normalStateHeight
     self.expandedStateHeight = expandedStateHeight
   }
-  
-  internal func height(for state: AirBarState) -> CGFloat {
-    switch state {
-    case .compact:
-      return compactStateHeight
-    case .normal:
-      return normalStateHeight
-    case .expanded:
-      return expandedStateHeight
+
+  internal func offsetBounds(for stateRange: StateRange) -> (CGFloat, CGFloat) {
+    switch stateRange {
+    case .compactNormal:
+      return (-normalStateHeight, -compactStateHeight)
+    case .normalExpanded:
+      return (-expandedStateHeight, -normalStateHeight)
     }
   }
 }

@@ -6,14 +6,14 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-struct ContentOffsetDeltaYMiddlewareParameters {
+internal struct ContentOffsetDeltaYMiddlewareParameters {
   let scrollable: Scrollable
   let previousContentOffset: CGPoint
   let contentOffset: CGPoint
   let contentOffsetDeltaY: CGFloat
 }
 
-typealias ContentOffsetDeltaYMiddleware = (ContentOffsetDeltaYMiddlewareParameters) -> CGFloat
+internal typealias ContentOffsetDeltaYMiddleware = (ContentOffsetDeltaYMiddlewareParameters) -> CGFloat
 
 internal let ignoreTopDeltaYMiddleware: ContentOffsetDeltaYMiddleware = { params -> CGFloat in
   var deltaY = params.contentOffsetDeltaY
@@ -32,7 +32,7 @@ internal let ignoreBottomDeltaYMiddleware: ContentOffsetDeltaYMiddleware = { par
 
   let end = params.scrollable.contentSize.height - params.scrollable.bounds.height + params.scrollable.contentInset.bottom
 
-  if params.contentOffset.y >= end {
+  if params.contentOffset.y >= end && params.contentOffsetDeltaY < 0 {
     deltaY = max(0, deltaY - params.contentOffset.y + end)
   }
 

@@ -28,10 +28,6 @@ extension UIScrollView: Scrollable {
   }
   
   var contentOffsetObservable: Observable<CGPoint> {
-    //let delegate = DelegateContentOffsetObservable()
-    //self.delegate = delegate
-    //return delegate
-    
     return KVObservable<CGPoint>(keyPath: #keyPath(UIScrollView.contentOffset), object: self)
   }
   
@@ -40,7 +36,6 @@ extension UIScrollView: Scrollable {
   }
   
   func updateContentOffset(_ contentOffset: CGPoint, animated: Bool) {
-    //setContentOffset(contentOffset, animated: animated)
     setContentOffset(self.contentOffset, animated: false)
 
     let animate = {
@@ -52,12 +47,9 @@ extension UIScrollView: Scrollable {
       return
     }
 
-    self.isUserInteractionEnabled = false
     UIView.animate(withDuration: 0.25, delay: 0, options: [], animations: {
       animate()
-    }, completion: { _ in
-      self.isUserInteractionEnabled = true
-    })
+    }, completion: nil)
   }
   
   func updateTopContentInset(_ topContentInset: CGFloat) {

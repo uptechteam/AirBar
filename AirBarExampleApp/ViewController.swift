@@ -104,30 +104,14 @@ class ViewController: UIViewController {
     airBar.addSubview(backButton)
     view.addSubview(airBar)
 
-    let configuration = BarConfiguration(
+    let configuration = Configuration(
       compactStateHeight: Constants.compactStateHeight,
       normalStateHeight: Constants.normalStateHeight,
       expandedStateHeight: Constants.expandedStateHeight
     )
     
-    let barStateObserver: (CGFloat) -> Void = { state in
-      print(state)
-      let stateRange: (CGFloat, CGFloat)
-      let heightRange: (CGFloat, CGFloat)
-      switch state {
-      case (0..<1):
-        stateRange = (0, 1)
-        heightRange = (Constants.compactStateHeight, Constants.normalStateHeight)
-      case (1...2):
-        stateRange = (1, 2)
-        heightRange = (Constants.normalStateHeight, Constants.expandedStateHeight)
-      default:
-        stateRange = (2, 2)
-        heightRange = (Constants.expandedStateHeight, Constants.expandedStateHeight)
-      }
-      
-      let height = state.map(from: stateRange, to: heightRange)
-      self.airBarController(self.barController, didChangeStateTo: state, withHeight: height)
+    let barStateObserver: (AirBar.State) -> Void = { state in
+      self.airBarController(self.barController, didChangeStateTo: state.transitionProgress(), withHeight: state.height())
     }
     
     barController = BarController(configuration: configuration, stateObserver: barStateObserver)
@@ -208,7 +192,7 @@ class ViewController: UIViewController {
   }
 
   @IBAction func handleReloadButtonPressed(_ sender: UIButton) {
-    numberOfItems = 0 + Int(arc4random_uniform(5))
+    numberOfItems = 1 + Int(arc4random_uniform(30))
     firstTableView.reloadData()
     secondTableView.reloadData()
   }
@@ -235,7 +219,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ViewController {
   func airBarController(_ controller: BarController, didChangeStateTo state: CGFloat, withHeight height: CGFloat) {
-
     shouldHideStatusBar = state > 0 && state < 1
     prefersStatusBarStyle = state > 0.5 ? .lightContent : .default
 

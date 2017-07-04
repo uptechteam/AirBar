@@ -8,9 +8,10 @@
 
 internal struct StateReducerParameters {
   let scrollable: Scrollable
-  let configuration: BarConfiguration
+  let configuration: Configuration
   let previousContentOffset: CGPoint
   let contentOffset: CGPoint
+  let isExpandedStateAvailable: Bool
   let state: State
 }
 
@@ -18,8 +19,6 @@ internal typealias StateReducer = (StateReducerParameters) -> State
 
 internal func createDefaultStateReducer(middlewares: [ContentOffsetDeltaYMiddleware]) -> StateReducer {
   return { (params: StateReducerParameters) -> State in
-    var state = params.state
-
     var deltaY = params.contentOffset.y - params.previousContentOffset.y
 
     deltaY = middlewares.reduce(deltaY) { (deltaY, middleware) -> CGFloat in
@@ -32,41 +31,15 @@ internal func createDefaultStateReducer(middlewares: [ContentOffsetDeltaYMiddlew
       return middleware(params)
     }
 
-    let currentStateRange = stateRange(contentOffset: params.contentOffset, configuration: params.configuration)
-    let previousStateRange = stateRange(contentOffset: params.previousContentOffset, configuration: params.configuration)
-
-    let currentHeightDelta = params.configuration.height(for: currentStateRange.1) - params.configuration.height(for: currentStateRange.0)
-    let previousHeightDelta = params.configuration.height(for: previousStateRange.1) - params.configuration.height(for: previousStateRange.0)
-
-    let stateDelta: CGFloat
-    if currentStateRange.0 == previousStateRange.0 && currentStateRange.1 == previousStateRange.1 {
-      stateDelta = AirBar.stateDelta(contentOffset: params.contentOffset, configuration: params.configuration, deltaY: deltaY)
+    let offsetBounds: (CGFloat, CGFloat)
+    if params.contentOffset.y < -params.configuration.normalStateHeight && params.isExpandedStateAvailable {
+      offsetBounds = (-params.configuration.expandedStateHeight, -params.configuration.normalStateHeight)
     } else {
-      let firstPartDeltaY = max(-params.configuration.normalStateHeight - params.previousContentOffset.y, deltaY)
-      let secondPartDeltaY = deltaY - firstPartDeltaY
-
-      let firstPartStateDelta = firstPartDeltaY.map(from: (-previousHeightDelta, previousHeightDelta), to: (-1, 1))
-      let secondPartStateDelta = secondPartDeltaY.map(from: (-currentHeightDelta, currentHeightDelta), to: (-1, 1))
-      stateDelta = firstPartStateDelta + secondPartStateDelta
+      offsetBounds = (-params.configuration.normalStateHeight, -params.configuration.compactStateHeight)
     }
 
-    state = state - stateDelta
-    state = state.bounded(by: (AirBarState.compact.rawValue, AirBarState.expanded.rawValue))
+    let newOffset = (params.state.offset + deltaY).bounded(by: offsetBounds)
 
-    return state
-  }
-}
-
-private func stateDelta(contentOffset: CGPoint, configuration: BarConfiguration, deltaY: CGFloat) -> CGFloat {
-  let states = stateRange(contentOffset: contentOffset, configuration: configuration)
-  let heightDelta = configuration.height(for: states.1) - configuration.height(for: states.0)
-  return deltaY.map(from: (-heightDelta, heightDelta), to: (-1, 1))
-}
-
-private func stateRange(contentOffset: CGPoint, configuration: BarConfiguration) -> (AirBarState, AirBarState) {
-  if contentOffset.y < -configuration.normalStateHeight {
-    return (AirBarState.normal, AirBarState.expanded)
-  } else {
-    return (AirBarState.compact, AirBarState.normal)
+    return State(offset: newOffset, configuration: params.state.configuration)
   }
 }

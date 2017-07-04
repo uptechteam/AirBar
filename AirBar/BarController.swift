@@ -8,37 +8,39 @@
 
 import UIKit
 
+public typealias StateObserver = (State) -> Void
+
 public class BarController {
-  // MARK: Private Properties
+  
   private let stateReducer: StateReducer
-  private let configuration: BarConfiguration
-  private let stateObserver: (CGFloat) -> Void
+  private let configuration: Configuration
+  private let stateObserver: StateObserver
+
+  private var state: State {
+    didSet { stateObserver(state) }
+  }
   
   private weak var scrollable: Scrollable?
   private var contentOffsetObservable: Observable<CGPoint>?
   private var contentSizeObservable: Observable<CGSize>?
   private var panGestureStateObservable: Observable<UIGestureRecognizerState>?
-  
-  private var state: CGFloat = 1 {
-    didSet {
-      stateObserver(state)
-    }
-  }
+  private var isExpandedStateAvailable = false
   
   // MARK: - Lifecycle
   internal init(
     stateReducer: @escaping StateReducer,
-    configuration: BarConfiguration,
-    stateObserver: @escaping (CGFloat) -> Void
+    configuration: Configuration,
+    stateObserver: @escaping StateObserver
   ) {
     self.stateReducer = stateReducer
     self.configuration = configuration
     self.stateObserver = stateObserver
+    self.state = State(offset: -configuration.normalStateHeight, configuration: configuration)
   }
   
   public convenience init(
-    configuration: BarConfiguration,
-    stateObserver: @escaping (CGFloat) -> Void
+    configuration: Configuration,
+    stateObserver: @escaping StateObserver
     ) {
     let middlewares = [ignoreTopDeltaYMiddleware, ignoreBottomDeltaYMiddleware]
     let stateReducer = createDefaultStateReducer(middlewares: middlewares)
@@ -96,14 +98,12 @@ public class BarController {
       return
     }
 
-    print(scrollable.contentInset)
-    print(scrollable.contentOffset)
-
     let reducerParams = StateReducerParameters(
       scrollable: scrollable,
       configuration: configuration,
       previousContentOffset: previousValue,
       contentOffset: newValue,
+      isExpandedStateAvailable: isExpandedStateAvailable,
       state: state
     )
 
@@ -112,11 +112,13 @@ public class BarController {
   
   private func contentSizeChanged(previousValue: CGSize?, newValue: CGSize) {
     guard let scrollable = scrollable else { return }
-    configureScrollable(scrollable)
+    placeholdBottomInset(scrollable)
   }
   
   private func panGestureStateChanged(state: UIGestureRecognizerState) {
     switch state {
+    case .began:
+      panGestureBegan()
     case .ended:
       panGestureEnded()
     default:
@@ -124,24 +126,39 @@ public class BarController {
     }
   }
 
+  private func panGestureBegan() {
+    guard let scrollable = scrollable else { return }
+
+    let isScrollingAtTop = scrollable.contentOffset.y.isNear(to: -configuration.normalStateHeight, delta: 5)
+    let isExpandedStatePreviouslyAvailable = scrollable.contentOffset.y < -configuration.normalStateHeight && isExpandedStateAvailable
+    isExpandedStateAvailable = isScrollingAtTop || isExpandedStatePreviouslyAvailable
+
+    scrollable.updateTopContentInset(isExpandedStateAvailable ? configuration.expandedStateHeight : configuration.normalStateHeight)
+  }
+
   private func panGestureEnded() {
     guard let scrollable = scrollable else { return }
 
-    let currentState = state
-    let roundedState = currentState.rounded(.toNearestOrEven)
+    let stateProgress = state.transitionProgress()
+    let roundedStateProgress = stateProgress.rounded(.toNearestOrEven)
 
-    guard currentState != roundedState else { return }
-
-    let stateRange: (AirBarState, AirBarState)
-    if currentState < 1 {
-      stateRange = (.compact, .normal)
-    } else {
-      stateRange = (.normal, .expanded)
+    guard
+      stateProgress != roundedStateProgress
+    else {
+      return
     }
 
-    let stateDelta = roundedState - currentState
-    let heightDelta = configuration.height(for: stateRange.1) - configuration.height(for: stateRange.0)
-    let offsetDelta = stateDelta.map(from: (-1, 1), to: (-heightDelta, heightDelta))
+    let stateRange: StateRange
+    if stateProgress < 1 {
+      stateRange = .compactNormal
+    } else {
+      stateRange = .normalExpanded
+    }
+
+    let progressDelta = roundedStateProgress - stateProgress
+    let offsetBounds = configuration.offsetBounds(for: stateRange)
+    let offsetBoundsDelta = offsetBounds.1 - offsetBounds.0
+    let offsetDelta = progressDelta.map(from: (-1, 1), to: (-offsetBoundsDelta, offsetBoundsDelta))
     let targetContentOffsetY = scrollable.contentOffset.y - offsetDelta
     let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
 
@@ -149,8 +166,11 @@ public class BarController {
   }
 
   private func configureScrollable(_ scrollable: Scrollable) {
-    scrollable.updateTopContentInset(configuration.expandedStateHeight)
+    scrollable.updateTopContentInset(configuration.normalStateHeight)
+    placeholdBottomInset(scrollable)
+  }
 
+  private func placeholdBottomInset(_ scrollable: Scrollable) {
     // Make sure that bar always expands and concats.
     let targetBottomContentInset: CGFloat
     if scrollable.contentSize.height < scrollable.frame.height - configuration.compactStateHeight {
