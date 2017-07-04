@@ -79,7 +79,15 @@ public class BarController {
     scrollable.contentInset.top = isExpandedState ? configuration.expandedStateHeight : configuration.normalStateHeight
 
     let currentContentOffsetY = scrollable.contentOffset.y
-    let targetContentOffsetY = isExpandedState ? -configuration.expandedStateHeight : max(state.offset, currentContentOffsetY)
+    let targetContentOffsetY: CGFloat
+    if isExpandedState {
+      targetContentOffsetY = -configuration.expandedStateHeight
+    } else if state.offset > currentContentOffsetY || (-configuration.compactStateHeight <= currentContentOffsetY && configuration.expandedStateHeight >= currentContentOffsetY) {
+      targetContentOffsetY = state.offset
+    } else {
+      targetContentOffsetY = currentContentOffsetY
+    }
+
     let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
     scrollable.updateContentOffset(targetContentOffset, animated: false)
   }
