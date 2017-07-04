@@ -184,11 +184,11 @@ class ViewController: UIViewController {
   // MARK: - User Interaction
 
   @objc private func handleBackButtonPressed(_ button: UIButton) {
-    //airBarController.expand(on: false)
+    barController.expand(on: false)
   }
 
   @objc private func handleSearchViewTapped(_ gestureRecognizer: UITapGestureRecognizer) {
-    //airBarController.expand(on: true)
+    barController.expand(on: true)
   }
 
   @IBAction func handleReloadButtonPressed(_ sender: UIButton) {

@@ -66,6 +66,14 @@ public class BarController {
     configureScrollable(scrollable)
     setupObserving()
   }
+
+  public func expand(on: Bool) {
+    guard let scrollable = scrollable else { return }
+    if on { self.isExpandedStateAvailable = true }
+    let targetContentOffsetY = on ? -configuration.expandedStateHeight : -configuration.normalStateHeight
+    let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
+    scrollable.updateContentOffset(targetContentOffset, animated: true)
+  }
   
   // MARK: - Private Methods
   private func setupObserving() {

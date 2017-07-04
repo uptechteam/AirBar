@@ -1,5 +1,5 @@
 //
-//  Middlewares.swift
+//  StateReducerMiddlewares.swift
 //  AirBar
 //
 //  Created by Евгений Матвиенко on 6/23/17.

@@ -26,8 +26,8 @@
 		6A3064811EEAB17E002DD788 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A30647F1EEAB17E002DD788 /* TableViewCell.swift */; };
 		6A3064821EEAB17E002DD788 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A3064801EEAB17E002DD788 /* TableViewCell.xib */; };
 		6A47D35E1E6419250076D0F8 /* CGFloat+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */; };
-		6A570E3E1EFD6D8100A33010 /* Reducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E3D1EFD6D8100A33010 /* Reducers.swift */; };
-		6A570E401EFD6DAE00A33010 /* Middlewares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E3F1EFD6DAE00A33010 /* Middlewares.swift */; };
+		6A570E3E1EFD6D8100A33010 /* StateReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E3D1EFD6D8100A33010 /* StateReducer.swift */; };
+		6A570E401EFD6DAE00A33010 /* StateReducerMiddlewares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E3F1EFD6DAE00A33010 /* StateReducerMiddlewares.swift */; };
 		6A570E421EFD822A00A33010 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E411EFD822A00A33010 /* Configuration.swift */; };
 		6AA23BBC1EFD20CB00A2D151 /* KVObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA23BBB1EFD20CB00A2D151 /* KVObservable.swift */; };
 		6AA23BC21EFD2F2300A2D151 /* BarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA23BC11EFD2F2300A2D151 /* BarController.swift */; };
@@ -92,8 +92,8 @@
 		6A30647F1EEAB17E002DD788 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		6A3064801EEAB17E002DD788 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Helpers.swift"; sourceTree = "<group>"; };
-		6A570E3D1EFD6D8100A33010 /* Reducers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reducers.swift; sourceTree = "<group>"; };
-		6A570E3F1EFD6DAE00A33010 /* Middlewares.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middlewares.swift; sourceTree = "<group>"; };
+		6A570E3D1EFD6D8100A33010 /* StateReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateReducer.swift; sourceTree = "<group>"; };
+		6A570E3F1EFD6DAE00A33010 /* StateReducerMiddlewares.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateReducerMiddlewares.swift; sourceTree = "<group>"; };
 		6A570E411EFD822A00A33010 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		6AA23BBB1EFD20CB00A2D151 /* KVObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObservable.swift; sourceTree = "<group>"; };
 		6AA23BC11EFD2F2300A2D151 /* BarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarController.swift; sourceTree = "<group>"; };
@@ -155,8 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				6AA23BC11EFD2F2300A2D151 /* BarController.swift */,
-				6A570E3D1EFD6D8100A33010 /* Reducers.swift */,
-				6A570E3F1EFD6DAE00A33010 /* Middlewares.swift */,
+				6A570E3D1EFD6D8100A33010 /* StateReducer.swift */,
+				6A570E3F1EFD6DAE00A33010 /* StateReducerMiddlewares.swift */,
 				6AA23BC31EFD2F6800A2D151 /* Scrollable.swift */,
 				6AC82AD71F0BD05E002AC1C7 /* Models */,
 				6AA23BB81EFD1E5C00A2D151 /* Observables */,
@@ -405,12 +405,12 @@
 				6A570E421EFD822A00A33010 /* Configuration.swift in Sources */,
 				6A47D35E1E6419250076D0F8 /* CGFloat+Helpers.swift in Sources */,
 				6AA23BC61EFD3F2400A2D151 /* Observable.swift in Sources */,
-				6A570E401EFD6DAE00A33010 /* Middlewares.swift in Sources */,
+				6A570E401EFD6DAE00A33010 /* StateReducerMiddlewares.swift in Sources */,
 				6AA644761F0B8EB3005A7842 /* State.swift in Sources */,
 				6AA23BC41EFD2F6800A2D151 /* Scrollable.swift in Sources */,
 				6AA23BC21EFD2F2300A2D151 /* BarController.swift in Sources */,
 				6AA23BC81EFD3FAC00A2D151 /* GestureStateObservable.swift in Sources */,
-				6A570E3E1EFD6D8100A33010 /* Reducers.swift in Sources */,
+				6A570E3E1EFD6D8100A33010 /* StateReducer.swift in Sources */,
 				6AA23BBC1EFD20CB00A2D151 /* KVObservable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
