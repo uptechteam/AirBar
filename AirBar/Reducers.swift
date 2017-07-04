@@ -6,8 +6,6 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-internal typealias State = CGFloat
-
 internal struct StateReducerParameters {
   let scrollable: Scrollable
   let configuration: BarConfiguration

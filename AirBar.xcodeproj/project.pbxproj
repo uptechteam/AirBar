@@ -38,6 +38,7 @@
 		6AA23BC41EFD2F6800A2D151 /* Scrollable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA23BC31EFD2F6800A2D151 /* Scrollable.swift */; };
 		6AA23BC61EFD3F2400A2D151 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA23BC51EFD3F2400A2D151 /* Observable.swift */; };
 		6AA23BC81EFD3FAC00A2D151 /* GestureStateObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA23BC71EFD3FAC00A2D151 /* GestureStateObservable.swift */; };
+		6AA644761F0B8EB3005A7842 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA644751F0B8EB3005A7842 /* State.swift */; };
 		6AB9CF481F0A6964005C8FDA /* DelegateContentOffsetObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB9CF471F0A6964005C8FDA /* DelegateContentOffsetObservable.swift */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		6AA23BC31EFD2F6800A2D151 /* Scrollable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrollable.swift; sourceTree = "<group>"; };
 		6AA23BC51EFD3F2400A2D151 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		6AA23BC71EFD3FAC00A2D151 /* GestureStateObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureStateObservable.swift; sourceTree = "<group>"; };
+		6AA644751F0B8EB3005A7842 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		6AB9CF471F0A6964005C8FDA /* DelegateContentOffsetObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateContentOffsetObservable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				6A243AC71E6028D500AC0D40 /* AirBar.h */,
+				6AA644751F0B8EB3005A7842 /* State.swift */,
 				6AA23BC11EFD2F2300A2D151 /* BarController.swift */,
 				6A570E411EFD822A00A33010 /* BarConfiguration.swift */,
 				6A570E3D1EFD6D8100A33010 /* Reducers.swift */,
@@ -414,6 +417,7 @@
 				6AA23BC61EFD3F2400A2D151 /* Observable.swift in Sources */,
 				6AB9CF481F0A6964005C8FDA /* DelegateContentOffsetObservable.swift in Sources */,
 				6A570E401EFD6DAE00A33010 /* Middlewares.swift in Sources */,
+				6AA644761F0B8EB3005A7842 /* State.swift in Sources */,
 				6A882E521E62C78E000BD55E /* AirBarControllerConfiguration.swift in Sources */,
 				6AA23BC41EFD2F6800A2D151 /* Scrollable.swift in Sources */,
 				6AA23BC21EFD2F2300A2D151 /* BarController.swift in Sources */,

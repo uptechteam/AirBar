@@ -6,7 +6,7 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-public struct BarConfiguration {
+public struct Configuration {
   let compactStateHeight: CGFloat
   let normalStateHeight: CGFloat
   let expandedStateHeight: CGFloat
