@@ -6,7 +6,7 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-import UIKit
+/*import UIKit
 
 public protocol AirBarControllerDelegate: class {
   /// Delegate method is called when AirBarController changes its internal state.
@@ -341,4 +341,4 @@ public class AirBarController: NSObject {
     previousYOffset = nil
   }
 
-}
+}*/

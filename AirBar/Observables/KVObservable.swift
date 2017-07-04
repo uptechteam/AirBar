@@ -6,38 +6,32 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-class KVObservable<Value>: Observable {
+class KVObservable<Value>: Observable<Value> {
+  
   private let keyPath: String
-  private let object: AnyObject
+  private weak var object: AnyObject?
+  private var observingContext = NSUUID().uuidString
   
   init(keyPath: String, object: AnyObject) {
     self.keyPath = keyPath
     self.object = object
+    super.init()
+    
+    object.addObserver(self, forKeyPath: keyPath, options: [.new], context: &observingContext)
   }
   
-  func subscribe(onNext: @escaping (Value) -> Void) -> Subscription {
-    let observer = KVObserver<Value>(observe: onNext)
-    let object = self.object
-    let keyPath = self.keyPath
-    var context = NSUUID().uuidString
-    
-    object.addObserver(observer, forKeyPath: keyPath, options: [.new], context: &context)
-    
-    return Subscription(dispose: {
-      object.removeObserver(observer, forKeyPath: keyPath, context: &context)
-    })
-  }
-}
-
-private class KVObserver<Value>: NSObject {
-  private let observe: (Value) -> Void
-  
-  init(observe: @escaping (Value) -> Void) {
-    self.observe = observe
+  deinit {
+    object?.removeObserver(self, forKeyPath: keyPath, context: &observingContext)
   }
   
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    guard let newValue = change?[NSKeyValueChangeKey.newKey] as? Value else { return }
-    observe(newValue)
+    guard
+      context == &observingContext,
+      let newValue = change?[NSKeyValueChangeKey.newKey] as? Value
+    else {
+      return
+    }
+    
+    observer?(newValue)
   }
 }

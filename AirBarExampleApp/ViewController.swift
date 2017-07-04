@@ -27,7 +27,7 @@ class ViewController: UIViewController {
   fileprivate var normalView: NormalView!
   fileprivate var expandedView: UIView!
   fileprivate var backButton: UIButton!
-  fileprivate var airBarController: AirBarController!
+  fileprivate var barController: BarController!
 
   fileprivate var shouldHideStatusBar = false {
     didSet {
@@ -104,14 +104,33 @@ class ViewController: UIViewController {
     airBar.addSubview(backButton)
     view.addSubview(airBar)
 
-    let configuration = AirBarControllerConfiguration(
-      normalStateHeight: Constants.normalStateHeight,
+    let configuration = BarConfiguration(
       compactStateHeight: Constants.compactStateHeight,
-      expandedStateHeight: Constants.expandedStateHeight,
-      initialState: .normal
+      normalStateHeight: Constants.normalStateHeight,
+      expandedStateHeight: Constants.expandedStateHeight
     )
-    airBarController = AirBarController(configuration: configuration)
-    airBarController.delegate = self
+    
+    let barStateObserver: (CGFloat) -> Void = { state in
+      print(state)
+      let stateRange: (CGFloat, CGFloat)
+      let heightRange: (CGFloat, CGFloat)
+      switch state {
+      case (0..<1):
+        stateRange = (0, 1)
+        heightRange = (Constants.compactStateHeight, Constants.normalStateHeight)
+      case (1...2):
+        stateRange = (1, 2)
+        heightRange = (Constants.normalStateHeight, Constants.expandedStateHeight)
+      default:
+        stateRange = (2, 2)
+        heightRange = (Constants.expandedStateHeight, Constants.expandedStateHeight)
+      }
+      
+      let height = state.map(from: stateRange, to: heightRange)
+      self.airBarController(self.barController, didChangeStateTo: state, withHeight: height)
+    }
+    
+    barController = BarController(configuration: configuration, stateObserver: barStateObserver)
 
     toggleSecondTable(on: false)
   }
@@ -162,7 +181,7 @@ class ViewController: UIViewController {
     }
 
     let completion = {
-      self.airBarController.scrollView = on ? self.secondTableView : self.firstTableView
+      self.barController.set(scrollView: on ? self.secondTableView : self.firstTableView)
     }
 
     guard animated else {
@@ -181,15 +200,15 @@ class ViewController: UIViewController {
   // MARK: - User Interaction
 
   @objc private func handleBackButtonPressed(_ button: UIButton) {
-    airBarController.expand(on: false)
+    //airBarController.expand(on: false)
   }
 
   @objc private func handleSearchViewTapped(_ gestureRecognizer: UITapGestureRecognizer) {
-    airBarController.expand(on: true)
+    //airBarController.expand(on: true)
   }
 
   @IBAction func handleReloadButtonPressed(_ sender: UIButton) {
-    numberOfItems = 5 + Int(arc4random_uniform(100))
+    numberOfItems = 0 + Int(arc4random_uniform(5))
     firstTableView.reloadData()
     secondTableView.reloadData()
   }
@@ -214,8 +233,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - AirBarControllerDelegate
 
-extension ViewController: AirBarControllerDelegate {
-  func airBarController(_ controller: AirBarController, didChangeStateTo state: CGFloat, withHeight height: CGFloat) {
+extension ViewController {
+  func airBarController(_ controller: BarController, didChangeStateTo state: CGFloat, withHeight height: CGFloat) {
 
     shouldHideStatusBar = state > 0 && state < 1
     prefersStatusBarStyle = state > 0.5 ? .lightContent : .default

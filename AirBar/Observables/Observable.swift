@@ -6,7 +6,6 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-internal protocol Observable {
-  associatedtype Value
-  func subscribe(onNext: @escaping (Value) -> Void) -> Subscription
+class Observable<Value>: NSObject {
+  var observer: ((Value) -> Void)?
 }
