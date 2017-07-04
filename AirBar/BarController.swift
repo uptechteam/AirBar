@@ -77,6 +77,7 @@ public class BarController {
     let isExpandedState = state.transitionProgress() == 2
 
     scrollable.contentInset.top = isExpandedState ? configuration.expandedStateHeight : configuration.normalStateHeight
+    scrollable.scrollIndicatorInsets.top = configuration.normalStateHeight
 
     let currentContentOffsetY = scrollable.contentOffset.y
     let targetContentOffsetY: CGFloat

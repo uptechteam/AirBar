@@ -11,6 +11,7 @@ import UIKit
 internal protocol Scrollable: class {
   var contentOffset: CGPoint { get }
   var contentInset: UIEdgeInsets { get set }
+  var scrollIndicatorInsets: UIEdgeInsets { get set }
   var contentSize: CGSize { get }
   var bounds: CGRect { get }
   var frame: CGRect { get }
