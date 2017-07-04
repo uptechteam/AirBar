@@ -133,7 +133,7 @@ public class BarController {
     let isExpandedStatePreviouslyAvailable = scrollable.contentOffset.y < -configuration.normalStateHeight && isExpandedStateAvailable
     isExpandedStateAvailable = isScrollingAtTop || isExpandedStatePreviouslyAvailable
 
-    scrollable.updateTopContentInset(isExpandedStateAvailable ? configuration.expandedStateHeight : configuration.normalStateHeight)
+    scrollable.contentInset.top = isExpandedStateAvailable ? configuration.expandedStateHeight : configuration.normalStateHeight
   }
 
   private func panGestureEnded() {
@@ -166,7 +166,7 @@ public class BarController {
   }
 
   private func configureScrollable(_ scrollable: Scrollable) {
-    scrollable.updateTopContentInset(configuration.normalStateHeight)
+    scrollable.contentInset.top = configuration.normalStateHeight
     placeholdBottomInset(scrollable)
   }
 
@@ -179,6 +179,6 @@ public class BarController {
       targetBottomContentInset = 0
     }
 
-    scrollable.updateBottomContentInset(targetBottomContentInset)
+    scrollable.contentInset.bottom = targetBottomContentInset
   }
 }

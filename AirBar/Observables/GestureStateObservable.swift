@@ -25,7 +25,6 @@ class GestureStateObservable: Observable<UIGestureRecognizerState> {
   }
   
   @objc private func handleEvent(_ recognizer: UIGestureRecognizer) {
-    
     observer?(recognizer.state)
   }
 }

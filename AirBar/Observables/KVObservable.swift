@@ -7,7 +7,6 @@
 //
 
 class KVObservable<Value>: Observable<Value> {
-  
   private let keyPath: String
   private weak var object: AnyObject?
   private var observingContext = NSUUID().uuidString

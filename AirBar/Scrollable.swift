@@ -10,7 +10,7 @@ import UIKit
 
 internal protocol Scrollable: class {
   var contentOffset: CGPoint { get }
-  var contentInset: UIEdgeInsets { get }
+  var contentInset: UIEdgeInsets { get set }
   var contentSize: CGSize { get }
   var bounds: CGRect { get }
   var frame: CGRect { get }
@@ -18,10 +18,9 @@ internal protocol Scrollable: class {
   var contentOffsetObservable: Observable<CGPoint> { get }
   var panGestureStateObservable: Observable<UIGestureRecognizerState> { get }
   func updateContentOffset(_ contentOffset: CGPoint, animated: Bool)
-  func updateTopContentInset(_ topContentInset: CGFloat)
-  func updateBottomContentInset(_ bottomContentInset: CGFloat)
 }
 
+// MARK: - UIScrollView + Scrollable
 extension UIScrollView: Scrollable {
   var contentSizeObservable: Observable<CGSize> {
     return KVObservable<CGSize>(keyPath: #keyPath(UIScrollView.contentSize), object: self)

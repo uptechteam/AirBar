@@ -26,7 +26,6 @@
 		6A3064811EEAB17E002DD788 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A30647F1EEAB17E002DD788 /* TableViewCell.swift */; };
 		6A3064821EEAB17E002DD788 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A3064801EEAB17E002DD788 /* TableViewCell.xib */; };
 		6A47D35E1E6419250076D0F8 /* CGFloat+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */; };
-		6A47D3601E6419430076D0F8 /* UIScrollView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A47D35F1E6419430076D0F8 /* UIScrollView+Helpers.swift */; };
 		6A570E3E1EFD6D8100A33010 /* Reducers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E3D1EFD6D8100A33010 /* Reducers.swift */; };
 		6A570E401EFD6DAE00A33010 /* Middlewares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E3F1EFD6DAE00A33010 /* Middlewares.swift */; };
 		6A570E421EFD822A00A33010 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E411EFD822A00A33010 /* Configuration.swift */; };
@@ -93,7 +92,6 @@
 		6A30647F1EEAB17E002DD788 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		6A3064801EEAB17E002DD788 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Helpers.swift"; sourceTree = "<group>"; };
-		6A47D35F1E6419430076D0F8 /* UIScrollView+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Helpers.swift"; sourceTree = "<group>"; };
 		6A570E3D1EFD6D8100A33010 /* Reducers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reducers.swift; sourceTree = "<group>"; };
 		6A570E3F1EFD6DAE00A33010 /* Middlewares.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middlewares.swift; sourceTree = "<group>"; };
 		6A570E411EFD822A00A33010 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -156,13 +154,11 @@
 		6A243AC61E6028D500AC0D40 /* AirBar */ = {
 			isa = PBXGroup;
 			children = (
-				6A243AC71E6028D500AC0D40 /* AirBar.h */,
-				6AA644751F0B8EB3005A7842 /* State.swift */,
 				6AA23BC11EFD2F2300A2D151 /* BarController.swift */,
-				6A570E411EFD822A00A33010 /* Configuration.swift */,
 				6A570E3D1EFD6D8100A33010 /* Reducers.swift */,
 				6A570E3F1EFD6DAE00A33010 /* Middlewares.swift */,
 				6AA23BC31EFD2F6800A2D151 /* Scrollable.swift */,
+				6AC82AD71F0BD05E002AC1C7 /* Models */,
 				6AA23BB81EFD1E5C00A2D151 /* Observables */,
 				6A47D3611E6419550076D0F8 /* Helpers */,
 				6A243AF61E60355600AC0D40 /* Resources */,
@@ -194,6 +190,7 @@
 		6A243AF61E60355600AC0D40 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6A243AC71E6028D500AC0D40 /* AirBar.h */,
 				6A243AC81E6028D500AC0D40 /* Info.plist */,
 			);
 			name = Resources;
@@ -219,9 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */,
-				6A47D35F1E6419430076D0F8 /* UIScrollView+Helpers.swift */,
 			);
-			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		6A47D3621E6423330076D0F8 /* Resources */ = {
@@ -242,6 +238,15 @@
 				6AA23BC71EFD3FAC00A2D151 /* GestureStateObservable.swift */,
 			);
 			path = Observables;
+			sourceTree = "<group>";
+		};
+		6AC82AD71F0BD05E002AC1C7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6AA644751F0B8EB3005A7842 /* State.swift */,
+				6A570E411EFD822A00A33010 /* Configuration.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -398,7 +403,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A570E421EFD822A00A33010 /* Configuration.swift in Sources */,
-				6A47D3601E6419430076D0F8 /* UIScrollView+Helpers.swift in Sources */,
 				6A47D35E1E6419250076D0F8 /* CGFloat+Helpers.swift in Sources */,
 				6AA23BC61EFD3F2400A2D151 /* Observable.swift in Sources */,
 				6A570E401EFD6DAE00A33010 /* Middlewares.swift in Sources */,
