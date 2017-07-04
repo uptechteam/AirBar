@@ -168,6 +168,8 @@ class ViewController: UIViewController {
       self.barController.set(scrollView: on ? self.secondTableView : self.firstTableView)
     }
 
+    self.barController.preconfigure(scrollView: on ? self.secondTableView : self.firstTableView)
+
     guard animated else {
       animate()
       completion()

@@ -63,8 +63,25 @@ public class BarController {
     self.contentSizeObservable = scrollable.contentSizeObservable
     self.panGestureStateObservable = scrollable.panGestureStateObservable
 
-    configureScrollable(scrollable)
+    preconfigure(scrollable: scrollable)
     setupObserving()
+  }
+
+  public func preconfigure(scrollView: UIScrollView) {
+    preconfigure(scrollable: scrollView)
+  }
+
+  internal func preconfigure(scrollable: Scrollable) {
+    placeholdBottomInset(scrollable)
+
+    let isExpandedState = state.transitionProgress() == 2
+
+    scrollable.contentInset.top = isExpandedState ? configuration.expandedStateHeight : configuration.normalStateHeight
+
+    let currentContentOffsetY = scrollable.contentOffset.y
+    let targetContentOffsetY = isExpandedState ? -configuration.expandedStateHeight : max(state.offset, currentContentOffsetY)
+    let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
+    scrollable.updateContentOffset(targetContentOffset, animated: false)
   }
 
   public func expand(on: Bool) {
@@ -97,7 +114,20 @@ public class BarController {
       self?.panGestureStateChanged(state: state)
     }
   }
-  
+
+  private func placeholdBottomInset(_ scrollable: Scrollable) {
+    // Make sure that bar always expands and concats.
+    let targetBottomContentInset: CGFloat
+    if scrollable.contentSize.height < scrollable.frame.height - configuration.compactStateHeight {
+      targetBottomContentInset = scrollable.frame.height - configuration.compactStateHeight - scrollable.contentSize.height
+    } else {
+      targetBottomContentInset = 0
+    }
+
+    scrollable.contentInset.bottom = targetBottomContentInset
+  }
+
+  // MARK: Scroll View Handlers
   private func contentOffsetChanged(previousValue: CGPoint?, newValue: CGPoint) {
     guard
       let previousValue = previousValue,
@@ -121,8 +151,14 @@ public class BarController {
   private func contentSizeChanged(previousValue: CGSize?, newValue: CGSize) {
     guard let scrollable = scrollable else { return }
     placeholdBottomInset(scrollable)
+
+    if scrollable.contentSize.height + state.height() < scrollable.frame.height {
+      let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: state.offset)
+      scrollable.updateContentOffset(targetContentOffset, animated: false)
+    }
   }
-  
+
+  // MARK: Pan Gesture Handlers
   private func panGestureStateChanged(state: UIGestureRecognizerState) {
     switch state {
     case .began:
@@ -171,22 +207,5 @@ public class BarController {
     let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
 
     scrollable.updateContentOffset(targetContentOffset, animated: true)
-  }
-
-  private func configureScrollable(_ scrollable: Scrollable) {
-    scrollable.contentInset.top = configuration.normalStateHeight
-    placeholdBottomInset(scrollable)
-  }
-
-  private func placeholdBottomInset(_ scrollable: Scrollable) {
-    // Make sure that bar always expands and concats.
-    let targetBottomContentInset: CGFloat
-    if scrollable.contentSize.height < scrollable.frame.height - configuration.compactStateHeight {
-      targetBottomContentInset = scrollable.frame.height - configuration.compactStateHeight - scrollable.contentSize.height
-    } else {
-      targetBottomContentInset = 0
-    }
-
-    scrollable.contentInset.bottom = targetBottomContentInset
   }
 }
