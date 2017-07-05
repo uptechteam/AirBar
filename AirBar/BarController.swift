@@ -74,7 +74,7 @@ public class BarController {
   internal func preconfigure(scrollable: Scrollable) {
     placeholdBottomInset(scrollable)
 
-    let isExpandedState = state.transitionProgress() == 2
+    let isExpandedState = state.offset == -configuration.expandedStateHeight
 
     scrollable.contentInset.top = isExpandedState ? configuration.expandedStateHeight : configuration.normalStateHeight
     scrollable.scrollIndicatorInsets.top = configuration.normalStateHeight

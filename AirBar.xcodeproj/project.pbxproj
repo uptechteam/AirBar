@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6A032D501E66DA31007B704E /* ExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A032D4F1E66DA31007B704E /* ExpandedView.swift */; };
+		6A11240B1F0CE9B4008C284B /* BarControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A11240A1F0CE9B4008C284B /* BarControllerTests.swift */; };
+		6A11240D1F0CECA1008C284B /* TestScrollable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A11240C1F0CECA1008C284B /* TestScrollable.swift */; };
 		6A243ACE1E6028D500AC0D40 /* AirBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A243AC41E6028D500AC0D40 /* AirBar.framework */; };
 		6A243AD31E6028D500AC0D40 /* AirBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243AD21E6028D500AC0D40 /* AirBarTests.swift */; };
 		6A243AD51E6028D500AC0D40 /* AirBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A243AC71E6028D500AC0D40 /* AirBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -70,6 +72,8 @@
 
 /* Begin PBXFileReference section */
 		6A032D4F1E66DA31007B704E /* ExpandedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandedView.swift; sourceTree = "<group>"; };
+		6A11240A1F0CE9B4008C284B /* BarControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarControllerTests.swift; sourceTree = "<group>"; };
+		6A11240C1F0CECA1008C284B /* TestScrollable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestScrollable.swift; sourceTree = "<group>"; };
 		6A243AC41E6028D500AC0D40 /* AirBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AirBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A243AC71E6028D500AC0D40 /* AirBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirBar.h; sourceTree = "<group>"; };
 		6A243AC81E6028D500AC0D40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -169,6 +173,8 @@
 		6A243AD11E6028D500AC0D40 /* AirBarTests */ = {
 			isa = PBXGroup;
 			children = (
+				6A11240C1F0CECA1008C284B /* TestScrollable.swift */,
+				6A11240A1F0CE9B4008C284B /* BarControllerTests.swift */,
 				6A243AD21E6028D500AC0D40 /* AirBarTests.swift */,
 				6A243AD41E6028D500AC0D40 /* Info.plist */,
 			);
@@ -420,6 +426,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A243AD31E6028D500AC0D40 /* AirBarTests.swift in Sources */,
+				6A11240D1F0CECA1008C284B /* TestScrollable.swift in Sources */,
+				6A11240B1F0CE9B4008C284B /* BarControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
