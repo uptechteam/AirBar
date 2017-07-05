@@ -192,29 +192,23 @@ public class BarController {
   private func panGestureEnded() {
     guard let scrollable = scrollable else { return }
 
-    let stateProgress = state.transitionProgress()
-    let roundedStateProgress = stateProgress.rounded(.toNearestOrEven)
+    let stateOffset = state.offset
+    let offsets = [
+      -configuration.compactStateHeight,
+      -configuration.normalStateHeight,
+      -configuration.expandedStateHeight
+    ]
 
-    guard
-      stateProgress != roundedStateProgress
-    else {
-      return
+    let smallestDelta = offsets.reduce(nil) { (smallestDelta: CGFloat?, offset: CGFloat) -> CGFloat in
+      let delta = offset - stateOffset
+      guard let smallestDelta = smallestDelta else { return delta }
+      return abs(delta) < abs(smallestDelta) ? delta : smallestDelta
     }
 
-    let stateRange: StateRange
-    if stateProgress < 1 {
-      stateRange = .compactNormal
-    } else {
-      stateRange = .normalExpanded
+    if let smallestDelta = smallestDelta, smallestDelta != 0 {
+      let targetContentOffsetY = scrollable.contentOffset.y + smallestDelta
+      let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
+      scrollable.updateContentOffset(targetContentOffset, animated: true)
     }
-
-    let progressDelta = roundedStateProgress - stateProgress
-    let offsetBounds = configuration.offsetBounds(for: stateRange)
-    let offsetBoundsDelta = offsetBounds.1 - offsetBounds.0
-    let offsetDelta = progressDelta.map(from: (-1, 1), to: (-offsetBoundsDelta, offsetBoundsDelta))
-    let targetContentOffsetY = scrollable.contentOffset.y - offsetDelta
-    let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
-
-    scrollable.updateContentOffset(targetContentOffset, animated: true)
   }
 }
