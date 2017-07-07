@@ -11,7 +11,6 @@
 		6A11240B1F0CE9B4008C284B /* BarControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A11240A1F0CE9B4008C284B /* BarControllerTests.swift */; };
 		6A11240D1F0CECA1008C284B /* TestScrollable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A11240C1F0CECA1008C284B /* TestScrollable.swift */; };
 		6A243ACE1E6028D500AC0D40 /* AirBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A243AC41E6028D500AC0D40 /* AirBar.framework */; };
-		6A243AD31E6028D500AC0D40 /* AirBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243AD21E6028D500AC0D40 /* AirBarTests.swift */; };
 		6A243AD51E6028D500AC0D40 /* AirBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A243AC71E6028D500AC0D40 /* AirBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A243AE51E6032C600AC0D40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243AE41E6032C600AC0D40 /* AppDelegate.swift */; };
 		6A243AE71E6032C600AC0D40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243AE61E6032C600AC0D40 /* ViewController.swift */; };
@@ -27,10 +26,14 @@
 		6A243B0B1E616D3D00AC0D40 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A243B0A1E616D3D00AC0D40 /* MenuView.swift */; };
 		6A3064811EEAB17E002DD788 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A30647F1EEAB17E002DD788 /* TableViewCell.swift */; };
 		6A3064821EEAB17E002DD788 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A3064801EEAB17E002DD788 /* TableViewCell.xib */; };
-		6A47D35E1E6419250076D0F8 /* CGFloat+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */; };
+		6A47D35E1E6419250076D0F8 /* CGFloat+AirBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A47D35D1E6419250076D0F8 /* CGFloat+AirBar.swift */; };
 		6A570E3E1EFD6D8100A33010 /* StateReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E3D1EFD6D8100A33010 /* StateReducer.swift */; };
-		6A570E401EFD6DAE00A33010 /* StateReducerMiddlewares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E3F1EFD6DAE00A33010 /* StateReducerMiddlewares.swift */; };
 		6A570E421EFD822A00A33010 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A570E411EFD822A00A33010 /* Configuration.swift */; };
+		6A65DA961F0F7663009552F9 /* StateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65DA951F0F7663009552F9 /* StateRange.swift */; };
+		6A65DA991F0F7A93009552F9 /* IgnoreTopDeltaYTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65DA981F0F7A93009552F9 /* IgnoreTopDeltaYTransformer.swift */; };
+		6A65DA9B1F0F7AA2009552F9 /* IgnoreBottomDeltaYTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65DA9A1F0F7AA2009552F9 /* IgnoreBottomDeltaYTransformer.swift */; };
+		6A65DA9D1F0F7AC9009552F9 /* CutOutStateRangeDeltaYTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65DA9C1F0F7AC9009552F9 /* CutOutStateRangeDeltaYTransformer.swift */; };
+		6A8A0BFE1F0D21E400617B19 /* StateReducerMiddlewaresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A0BFD1F0D21E400617B19 /* StateReducerMiddlewaresTests.swift */; };
 		6AA23BBC1EFD20CB00A2D151 /* KVObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA23BBB1EFD20CB00A2D151 /* KVObservable.swift */; };
 		6AA23BC21EFD2F2300A2D151 /* BarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA23BC11EFD2F2300A2D151 /* BarController.swift */; };
 		6AA23BC41EFD2F6800A2D151 /* Scrollable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA23BC31EFD2F6800A2D151 /* Scrollable.swift */; };
@@ -78,7 +81,6 @@
 		6A243AC71E6028D500AC0D40 /* AirBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirBar.h; sourceTree = "<group>"; };
 		6A243AC81E6028D500AC0D40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A243ACD1E6028D500AC0D40 /* AirBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A243AD21E6028D500AC0D40 /* AirBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirBarTests.swift; sourceTree = "<group>"; };
 		6A243AD41E6028D500AC0D40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A243AE21E6032C600AC0D40 /* AirBarExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirBarExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A243AE41E6032C600AC0D40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,10 +97,14 @@
 		6A243B0A1E616D3D00AC0D40 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		6A30647F1EEAB17E002DD788 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		6A3064801EEAB17E002DD788 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
-		6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Helpers.swift"; sourceTree = "<group>"; };
+		6A47D35D1E6419250076D0F8 /* CGFloat+AirBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+AirBar.swift"; sourceTree = "<group>"; };
 		6A570E3D1EFD6D8100A33010 /* StateReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateReducer.swift; sourceTree = "<group>"; };
-		6A570E3F1EFD6DAE00A33010 /* StateReducerMiddlewares.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateReducerMiddlewares.swift; sourceTree = "<group>"; };
 		6A570E411EFD822A00A33010 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		6A65DA951F0F7663009552F9 /* StateRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRange.swift; sourceTree = "<group>"; };
+		6A65DA981F0F7A93009552F9 /* IgnoreTopDeltaYTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IgnoreTopDeltaYTransformer.swift; sourceTree = "<group>"; };
+		6A65DA9A1F0F7AA2009552F9 /* IgnoreBottomDeltaYTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IgnoreBottomDeltaYTransformer.swift; sourceTree = "<group>"; };
+		6A65DA9C1F0F7AC9009552F9 /* CutOutStateRangeDeltaYTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutOutStateRangeDeltaYTransformer.swift; sourceTree = "<group>"; };
+		6A8A0BFD1F0D21E400617B19 /* StateReducerMiddlewaresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateReducerMiddlewaresTests.swift; sourceTree = "<group>"; };
 		6AA23BBB1EFD20CB00A2D151 /* KVObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObservable.swift; sourceTree = "<group>"; };
 		6AA23BC11EFD2F2300A2D151 /* BarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarController.swift; sourceTree = "<group>"; };
 		6AA23BC31EFD2F6800A2D151 /* Scrollable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrollable.swift; sourceTree = "<group>"; };
@@ -159,9 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				6AA23BC11EFD2F2300A2D151 /* BarController.swift */,
-				6A570E3D1EFD6D8100A33010 /* StateReducer.swift */,
-				6A570E3F1EFD6DAE00A33010 /* StateReducerMiddlewares.swift */,
 				6AA23BC31EFD2F6800A2D151 /* Scrollable.swift */,
+				6A65DA971F0F77CE009552F9 /* Reducer */,
 				6AC82AD71F0BD05E002AC1C7 /* Models */,
 				6AA23BB81EFD1E5C00A2D151 /* Observables */,
 				6A47D3611E6419550076D0F8 /* Helpers */,
@@ -175,7 +180,7 @@
 			children = (
 				6A11240C1F0CECA1008C284B /* TestScrollable.swift */,
 				6A11240A1F0CE9B4008C284B /* BarControllerTests.swift */,
-				6A243AD21E6028D500AC0D40 /* AirBarTests.swift */,
+				6A8A0BFD1F0D21E400617B19 /* StateReducerMiddlewaresTests.swift */,
 				6A243AD41E6028D500AC0D40 /* Info.plist */,
 			);
 			path = AirBarTests;
@@ -221,7 +226,7 @@
 		6A47D3611E6419550076D0F8 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				6A47D35D1E6419250076D0F8 /* CGFloat+Helpers.swift */,
+				6A47D35D1E6419250076D0F8 /* CGFloat+AirBar.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -234,6 +239,17 @@
 				6A243AF01E6032C600AC0D40 /* Info.plist */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		6A65DA971F0F77CE009552F9 /* Reducer */ = {
+			isa = PBXGroup;
+			children = (
+				6A570E3D1EFD6D8100A33010 /* StateReducer.swift */,
+				6A65DA981F0F7A93009552F9 /* IgnoreTopDeltaYTransformer.swift */,
+				6A65DA9A1F0F7AA2009552F9 /* IgnoreBottomDeltaYTransformer.swift */,
+				6A65DA9C1F0F7AC9009552F9 /* CutOutStateRangeDeltaYTransformer.swift */,
+			);
+			path = Reducer;
 			sourceTree = "<group>";
 		};
 		6AA23BB81EFD1E5C00A2D151 /* Observables */ = {
@@ -250,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				6AA644751F0B8EB3005A7842 /* State.swift */,
+				6A65DA951F0F7663009552F9 /* StateRange.swift */,
 				6A570E411EFD822A00A33010 /* Configuration.swift */,
 			);
 			path = Models;
@@ -409,14 +426,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A570E421EFD822A00A33010 /* Configuration.swift in Sources */,
-				6A47D35E1E6419250076D0F8 /* CGFloat+Helpers.swift in Sources */,
+				6A47D35E1E6419250076D0F8 /* CGFloat+AirBar.swift in Sources */,
+				6A65DA961F0F7663009552F9 /* StateRange.swift in Sources */,
 				6AA23BC61EFD3F2400A2D151 /* Observable.swift in Sources */,
-				6A570E401EFD6DAE00A33010 /* StateReducerMiddlewares.swift in Sources */,
 				6AA644761F0B8EB3005A7842 /* State.swift in Sources */,
+				6A65DA991F0F7A93009552F9 /* IgnoreTopDeltaYTransformer.swift in Sources */,
 				6AA23BC41EFD2F6800A2D151 /* Scrollable.swift in Sources */,
 				6AA23BC21EFD2F2300A2D151 /* BarController.swift in Sources */,
+				6A65DA9B1F0F7AA2009552F9 /* IgnoreBottomDeltaYTransformer.swift in Sources */,
 				6AA23BC81EFD3FAC00A2D151 /* GestureStateObservable.swift in Sources */,
 				6A570E3E1EFD6D8100A33010 /* StateReducer.swift in Sources */,
+				6A65DA9D1F0F7AC9009552F9 /* CutOutStateRangeDeltaYTransformer.swift in Sources */,
 				6AA23BBC1EFD20CB00A2D151 /* KVObservable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,7 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A243AD31E6028D500AC0D40 /* AirBarTests.swift in Sources */,
+				6A8A0BFE1F0D21E400617B19 /* StateReducerMiddlewaresTests.swift in Sources */,
 				6A11240D1F0CECA1008C284B /* TestScrollable.swift in Sources */,
 				6A11240B1F0CE9B4008C284B /* BarControllerTests.swift in Sources */,
 			);

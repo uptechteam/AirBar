@@ -42,8 +42,12 @@ public class BarController {
     configuration: Configuration,
     stateObserver: @escaping StateObserver
     ) {
-    let middlewares = [ignoreTopDeltaYMiddleware, ignoreBottomDeltaYMiddleware]
-    let stateReducer = createDefaultStateReducer(middlewares: middlewares)
+    let transformers: [ContentOffsetDeltaYTransformer] = [
+      ignoreTopDeltaYTransformer,
+      ignoreBottomDeltaYTransformer,
+      cutOutStateRangeDeltaYTransformer,
+    ]
+    let stateReducer = makeDefaultStateReducer(transformers: transformers)
 
     self.init(
       stateReducer: stateReducer,
@@ -174,6 +178,8 @@ public class BarController {
       panGestureBegan()
     case .ended:
       panGestureEnded()
+    case .changed:
+      panGestureChanged()
     default:
       break
     }
@@ -187,6 +193,17 @@ public class BarController {
     isExpandedStateAvailable = isScrollingAtTop || isExpandedStatePreviouslyAvailable
 
     scrollable.contentInset.top = isExpandedStateAvailable ? configuration.expandedStateHeight : configuration.normalStateHeight
+  }
+
+  private func panGestureChanged() {
+    guard let scrollable = scrollable else { return }
+
+    if isExpandedStateAvailable {
+      if scrollable.contentOffset.y > -configuration.normalStateHeight {
+        isExpandedStateAvailable = false
+        scrollable.contentInset.top = configuration.normalStateHeight
+      }
+    }
   }
 
   private func panGestureEnded() {

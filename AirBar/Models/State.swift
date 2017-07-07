@@ -15,16 +15,26 @@ public struct State {
     self.configuration = configuration
   }
 
-  public func height() -> CGFloat {
-    return -offset
-  }
-
-  public func stateRange() -> StateRange {
-    if height() < configuration.normalStateHeight {
+  internal func stateRange() -> StateRange {
+    if offset > -configuration.normalStateHeight {
       return .compactNormal
     } else {
       return .normalExpanded
     }
+  }
+
+  internal func set(offset: CGFloat) -> State {
+    return State(offset: offset, configuration: configuration)
+  }
+
+  internal func add(offset: CGFloat) -> State {
+    return set(offset: self.offset + offset)
+  }
+}
+
+public extension State {
+  public func height() -> CGFloat {
+    return -offset
   }
 
   public func transitionProgress() -> CGFloat {
@@ -33,19 +43,5 @@ public struct State {
     let progressBounds = stateRange.progressBounds()
     let reversedProgressBounds = (progressBounds.1, progressBounds.0)
     return offset.map(from: offsetBounds, to: reversedProgressBounds)
-  }
-}
-
-public enum StateRange {
-  case compactNormal
-  case normalExpanded
-
-  func progressBounds() -> (CGFloat, CGFloat) {
-    switch self {
-    case .compactNormal:
-      return (0, 1)
-    case .normalExpanded:
-      return (1, 2)
-    }
   }
 }

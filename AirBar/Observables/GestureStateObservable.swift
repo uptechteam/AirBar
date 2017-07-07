@@ -6,14 +6,10 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-import UIKit
-
-class GestureStateObservable: Observable<UIGestureRecognizerState> {
-  
+internal class GestureStateObservable: Observable<UIGestureRecognizerState> {
   private weak var gestureRecognizer: UIGestureRecognizer?
-  private var latestState: UIGestureRecognizerState?
   
-  init(gestureRecognizer: UIGestureRecognizer) {
+  internal init(gestureRecognizer: UIGestureRecognizer) {
     self.gestureRecognizer = gestureRecognizer
     super.init()
     

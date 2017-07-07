@@ -6,6 +6,6 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-class Observable<Value>: NSObject {
-  var observer: ((Value) -> Void)?
+internal class Observable<Value>: NSObject {
+  internal var observer: ((Value) -> Void)?
 }

@@ -1,19 +1,17 @@
 //
-//  CGFloat+Helpers.swift
+//  CGFloat+AirBar.swift
 //  AirBar
 //
 //  Created by Evgeny Matviyenko on 2/27/17.
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-import Foundation
-
-extension CGFloat {
-  func isNear(to number: CGFloat, delta: CGFloat) -> Bool {
+internal extension CGFloat {
+  internal func isNear(to number: CGFloat, delta: CGFloat) -> Bool {
     return self >= (number - delta) && self <= (number + delta)
   }
 
-  func map(from firstBounds: (CGFloat, CGFloat), to secondBounds: (CGFloat, CGFloat)) -> CGFloat {
+  internal func map(from firstBounds: (CGFloat, CGFloat), to secondBounds: (CGFloat, CGFloat)) -> CGFloat {
     guard self > firstBounds.0 else {
       return secondBounds.0
     }
@@ -27,8 +25,7 @@ extension CGFloat {
     return secondBounds.0 + ratio * (secondBounds.1 - secondBounds.0)
   }
 
-  func bounded(by bounds: (CGFloat, CGFloat)) -> CGFloat {
+  internal func bounded(by bounds: (CGFloat, CGFloat)) -> CGFloat {
     return Swift.max(bounds.0, Swift.min(bounds.1, self))
   }
-  
 }

@@ -40,6 +40,10 @@ class BarControllerTests: XCTestCase {
     )
   }
 
+  func test() {
+    
+  }
+
   override func tearDown() {
     latestState = nil
   }

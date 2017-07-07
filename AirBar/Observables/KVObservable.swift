@@ -6,12 +6,12 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-class KVObservable<Value>: Observable<Value> {
+internal class KVObservable<Value>: Observable<Value> {
   private let keyPath: String
   private weak var object: AnyObject?
   private var observingContext = NSUUID().uuidString
   
-  init(keyPath: String, object: AnyObject) {
+  internal init(keyPath: String, object: AnyObject) {
     self.keyPath = keyPath
     self.object = object
     super.init()

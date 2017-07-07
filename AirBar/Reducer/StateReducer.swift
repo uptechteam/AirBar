@@ -17,29 +17,35 @@ internal struct StateReducerParameters {
 
 internal typealias StateReducer = (StateReducerParameters) -> State
 
-internal func createDefaultStateReducer(middlewares: [ContentOffsetDeltaYMiddleware]) -> StateReducer {
+internal struct ContentOffsetDeltaYTransformerParameters {
+  let scrollable: Scrollable
+  let configuration: Configuration
+  let previousContentOffset: CGPoint
+  let contentOffset: CGPoint
+  let isExpandedStateAvailable: Bool
+  let state: State
+  let contentOffsetDeltaY: CGFloat
+}
+
+internal typealias ContentOffsetDeltaYTransformer = (ContentOffsetDeltaYTransformerParameters) -> CGFloat
+
+internal func makeDefaultStateReducer(transformers: [ContentOffsetDeltaYTransformer]) -> StateReducer {
   return { (params: StateReducerParameters) -> State in
     var deltaY = params.contentOffset.y - params.previousContentOffset.y
 
-    deltaY = middlewares.reduce(deltaY) { (deltaY, middleware) -> CGFloat in
-      let params = ContentOffsetDeltaYMiddlewareParameters(
+    deltaY = transformers.reduce(deltaY) { (deltaY, middleware) -> CGFloat in
+      let params = ContentOffsetDeltaYTransformerParameters(
         scrollable: params.scrollable,
+        configuration: params.configuration,
         previousContentOffset: params.previousContentOffset,
         contentOffset: params.contentOffset,
+        isExpandedStateAvailable: params.isExpandedStateAvailable,
+        state: params.state,
         contentOffsetDeltaY: deltaY
       )
       return middleware(params)
     }
 
-    let offsetBounds: (CGFloat, CGFloat)
-    if params.contentOffset.y < -params.configuration.normalStateHeight && params.isExpandedStateAvailable {
-      offsetBounds = (-params.configuration.expandedStateHeight, -params.configuration.normalStateHeight)
-    } else {
-      offsetBounds = (-params.configuration.normalStateHeight, -params.configuration.compactStateHeight)
-    }
-
-    let newOffset = (params.state.offset + deltaY).bounded(by: offsetBounds)
-
-    return State(offset: newOffset, configuration: params.state.configuration)
+    return params.state.add(offset: deltaY)
   }
 }
