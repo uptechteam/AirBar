@@ -13,7 +13,6 @@ internal protocol Scrollable: class {
   var contentInset: UIEdgeInsets { get set }
   var scrollIndicatorInsets: UIEdgeInsets { get set }
   var contentSize: CGSize { get }
-  var bounds: CGRect { get }
   var frame: CGRect { get }
   var contentSizeObservable: Observable<CGSize> { get }
   var contentOffsetObservable: Observable<CGPoint> { get }

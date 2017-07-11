@@ -78,23 +78,16 @@ public class BarController {
   internal func preconfigure(scrollable: Scrollable) {
     scrollable.setBottomContentInsetToFillEmptySpace(heightDelta: configuration.compactStateHeight)
 
-    let isExpandedState = state.offset == -configuration.expandedStateHeight
+    let isExpandedState = state.offset < -configuration.normalStateHeight && isExpandedStateAvailable
 
     scrollable.contentInset.top = isExpandedState ? configuration.expandedStateHeight : configuration.normalStateHeight
     scrollable.scrollIndicatorInsets.top = configuration.normalStateHeight
 
     let currentContentOffsetY = scrollable.contentOffset.y
-    let targetContentOffsetY: CGFloat
-    if isExpandedState {
-      targetContentOffsetY = -configuration.expandedStateHeight
-    } else if state.offset > currentContentOffsetY || (-configuration.compactStateHeight <= currentContentOffsetY && configuration.expandedStateHeight >= currentContentOffsetY) {
-      targetContentOffsetY = state.offset
-    } else {
-      targetContentOffsetY = currentContentOffsetY
+    if currentContentOffsetY <= 0 || isExpandedState {
+      let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: state.offset)
+      scrollable.updateContentOffset(targetContentOffset, animated: false)
     }
-
-    let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
-    scrollable.updateContentOffset(targetContentOffset, animated: false)
   }
 
   public func expand(on: Bool) {

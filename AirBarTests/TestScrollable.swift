@@ -10,21 +10,23 @@ import XCTest
 @testable import AirBar
 
 class TestScrollable: Scrollable {
-  var contentOffset = CGPoint()
+  var contentOffset = CGPoint() {
+    didSet {
+      contentOffsetObservable.observer?(contentOffset)
+    }
+  }
   var contentInset = UIEdgeInsets()
   var scrollIndicatorInsets = UIEdgeInsets()
-  var contentSize = CGSize()
-  var bounds = CGRect()
+  var contentSize = CGSize() {
+    didSet {
+      contentSizeObservable.observer?(contentSize)
+    }
+  }
   var frame = CGRect()
 
-  var _contentSizeObservable: Observable<CGSize>!
-  var contentSizeObservable: Observable<CGSize> { return _contentSizeObservable }
-
-  var _contentOffsetObservable: Observable<CGPoint>!
-  var contentOffsetObservable: Observable<CGPoint> { return _contentOffsetObservable }
-
-  var _panGestureStateObservable: Observable<UIGestureRecognizerState>!
-  var panGestureStateObservable: Observable<UIGestureRecognizerState> { return _panGestureStateObservable }
+  let contentSizeObservable = Observable<CGSize>()
+  let contentOffsetObservable = Observable<CGPoint>()
+  let panGestureStateObservable = Observable<UIGestureRecognizerState>()
 
   var _updateContentOffsetReceivedArgs: (CGPoint, Bool)?
   func updateContentOffset(_ contentOffset: CGPoint, animated: Bool) {

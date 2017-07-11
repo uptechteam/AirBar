@@ -14,7 +14,7 @@ class IgnoreBottomDeltaYTransformerTests: XCTestCase {
     let scrollable = TestScrollable()
     scrollable.contentInset.bottom = 200
     scrollable.contentSize.height = 300
-    scrollable.bounds = CGRect(x: 0, y: 0, width: 0, height: 300)
+    scrollable.frame = CGRect(x: 0, y: 0, width: 0, height: 300)
     let configuration = Configuration(
       compactStateHeight: 100,
       normalStateHeight: 200,

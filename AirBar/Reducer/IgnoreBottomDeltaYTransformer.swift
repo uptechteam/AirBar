@@ -9,7 +9,7 @@
 internal let ignoreBottomDeltaYTransformer: ContentOffsetDeltaYTransformer = { params -> CGFloat in
   var deltaY = params.contentOffsetDeltaY
 
-  let end = params.scrollable.contentSize.height - params.scrollable.bounds.height + params.scrollable.contentInset.bottom
+  let end = params.scrollable.contentSize.height - params.scrollable.frame.height + params.scrollable.contentInset.bottom
 
   if params.previousContentOffset.y > end ||
     params.previousContentOffset.y > end
