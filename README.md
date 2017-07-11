@@ -1,5 +1,5 @@
-![AirBar](/Logo/Logo.png)
-![pod](https://img.shields.io/cocoapods/v/AirBar.svg) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+# AirBar
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Demo
 ![AirBar Demo](/Logo/Demo.gif)
