@@ -46,6 +46,7 @@
 		6AF8FBD01F14DE9E00C1D6CB /* StateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBCF1F14DE9E00C1D6CB /* StateTests.swift */; };
 		6AF8FBD21F14E1E800C1D6CB /* StateRangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBD11F14E1E800C1D6CB /* StateRangeTests.swift */; };
 		6AF8FBD41F14E29400C1D6CB /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBD31F14E29400C1D6CB /* ConfigurationTests.swift */; };
+		6AF8FBD71F14E69200C1D6CB /* KVObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBD61F14E69200C1D6CB /* KVObservableTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		6AF8FBCF1F14DE9E00C1D6CB /* StateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTests.swift; sourceTree = "<group>"; };
 		6AF8FBD11F14E1E800C1D6CB /* StateRangeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRangeTests.swift; sourceTree = "<group>"; };
 		6AF8FBD31F14E29400C1D6CB /* ConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
+		6AF8FBD61F14E69200C1D6CB /* KVObservableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObservableTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,10 +192,11 @@
 		6A243AD11E6028D500AC0D40 /* AirBarTests */ = {
 			isa = PBXGroup;
 			children = (
+				6A11240A1F0CE9B4008C284B /* BarControllerTests.swift */,
+				6A11240C1F0CECA1008C284B /* TestScrollable.swift */,
 				6A9BA6031F0FAD870017C3F9 /* Reducer */,
 				6AF8FBCE1F14DE7100C1D6CB /* Models */,
-				6A11240C1F0CECA1008C284B /* TestScrollable.swift */,
-				6A11240A1F0CE9B4008C284B /* BarControllerTests.swift */,
+				6AF8FBD51F14E5EB00C1D6CB /* Observables */,
 				6A243AD41E6028D500AC0D40 /* Info.plist */,
 			);
 			path = AirBarTests;
@@ -304,6 +307,14 @@
 				6AF8FBD31F14E29400C1D6CB /* ConfigurationTests.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		6AF8FBD51F14E5EB00C1D6CB /* Observables */ = {
+			isa = PBXGroup;
+			children = (
+				6AF8FBD61F14E69200C1D6CB /* KVObservableTests.swift */,
+			);
+			path = Observables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -480,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A9BA6091F0FB4C90017C3F9 /* CutOutStateRangeDeltaYTransformerTests.swift in Sources */,
+				6AF8FBD71F14E69200C1D6CB /* KVObservableTests.swift in Sources */,
 				6AF8FBD21F14E1E800C1D6CB /* StateRangeTests.swift in Sources */,
 				6AF8FBD41F14E29400C1D6CB /* ConfigurationTests.swift in Sources */,
 				6AF8FBD01F14DE9E00C1D6CB /* StateTests.swift in Sources */,
