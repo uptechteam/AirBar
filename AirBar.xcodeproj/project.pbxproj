@@ -44,6 +44,7 @@
 		6AA23BC81EFD3FAC00A2D151 /* GestureStateObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA23BC71EFD3FAC00A2D151 /* GestureStateObservable.swift */; };
 		6AA644761F0B8EB3005A7842 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA644751F0B8EB3005A7842 /* State.swift */; };
 		6AF8FBD01F14DE9E00C1D6CB /* StateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBCF1F14DE9E00C1D6CB /* StateTests.swift */; };
+		6AF8FBD21F14E1E800C1D6CB /* StateRangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBD11F14E1E800C1D6CB /* StateRangeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,7 @@
 		6AA23BC71EFD3FAC00A2D151 /* GestureStateObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureStateObservable.swift; sourceTree = "<group>"; };
 		6AA644751F0B8EB3005A7842 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		6AF8FBCF1F14DE9E00C1D6CB /* StateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTests.swift; sourceTree = "<group>"; };
+		6AF8FBD11F14E1E800C1D6CB /* StateRangeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRangeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF8FBCF1F14DE9E00C1D6CB /* StateTests.swift */,
+				6AF8FBD11F14E1E800C1D6CB /* StateRangeTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A9BA6091F0FB4C90017C3F9 /* CutOutStateRangeDeltaYTransformerTests.swift in Sources */,
+				6AF8FBD21F14E1E800C1D6CB /* StateRangeTests.swift in Sources */,
 				6AF8FBD01F14DE9E00C1D6CB /* StateTests.swift in Sources */,
 				6A9BA6051F0FADE60017C3F9 /* IgnoreTopDeltaYTransformerTests.swift in Sources */,
 				6A9BA6071F0FB0340017C3F9 /* IgnoreBottomDeltaYTransformerTests.swift in Sources */,

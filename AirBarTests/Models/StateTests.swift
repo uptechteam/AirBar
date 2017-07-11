@@ -11,7 +11,7 @@ import XCTest
 
 class StateTests: XCTestCase {
   private let testConfiguration = Configuration(compactStateHeight: 100, normalStateHeight: 200, expandedStateHeight: 300)
-
+  
   func testStateRange() {
     let compactState = State(offset: -100, configuration: testConfiguration)
     XCTAssertEqual(compactState.stateRange(), .compactNormal)
