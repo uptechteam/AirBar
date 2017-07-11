@@ -30,3 +30,11 @@ public struct Configuration {
     }
   }
 }
+
+extension Configuration: Equatable {
+  public static func == (lhs: Configuration, rhs: Configuration) -> Bool {
+    return lhs.compactStateHeight == rhs.compactStateHeight &&
+      lhs.normalStateHeight == rhs.normalStateHeight &&
+      lhs.expandedStateHeight == rhs.expandedStateHeight
+  }
+}

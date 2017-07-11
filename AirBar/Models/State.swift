@@ -45,3 +45,10 @@ public extension State {
     return offset.map(from: offsetBounds, to: reversedProgressBounds)
   }
 }
+
+extension State: Equatable {
+  public static func == (lhs: State, rhs: State) -> Bool {
+    return lhs.offset == rhs.offset &&
+      lhs.configuration == rhs.configuration
+  }
+}

@@ -62,7 +62,7 @@ class CutOutStateRangeDeltaYTransformerTests: XCTestCase {
     XCTAssertEqual(receivedDeltaY, -20)
   }
 
-  func testTransformerOnConact() {
+  func testTransformerOnConcat() {
     let scrollable = TestScrollable()
     let configuration = Configuration(
       compactStateHeight: 100,
