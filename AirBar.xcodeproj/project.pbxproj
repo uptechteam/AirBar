@@ -47,6 +47,7 @@
 		6AF8FBD21F14E1E800C1D6CB /* StateRangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBD11F14E1E800C1D6CB /* StateRangeTests.swift */; };
 		6AF8FBD41F14E29400C1D6CB /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBD31F14E29400C1D6CB /* ConfigurationTests.swift */; };
 		6AF8FBD71F14E69200C1D6CB /* KVObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBD61F14E69200C1D6CB /* KVObservableTests.swift */; };
+		6AF8FBDC1F14ECC400C1D6CB /* CGFloatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF8FBDB1F14ECC400C1D6CB /* CGFloatTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		6AF8FBD11F14E1E800C1D6CB /* StateRangeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRangeTests.swift; sourceTree = "<group>"; };
 		6AF8FBD31F14E29400C1D6CB /* ConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
 		6AF8FBD61F14E69200C1D6CB /* KVObservableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObservableTests.swift; sourceTree = "<group>"; };
+		6AF8FBDB1F14ECC400C1D6CB /* CGFloatTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +199,7 @@
 				6A9BA6031F0FAD870017C3F9 /* Reducer */,
 				6AF8FBCE1F14DE7100C1D6CB /* Models */,
 				6AF8FBD51F14E5EB00C1D6CB /* Observables */,
+				6AF8FBDA1F14EC9700C1D6CB /* Helpers */,
 				6A243AD41E6028D500AC0D40 /* Info.plist */,
 			);
 			path = AirBarTests;
@@ -315,6 +318,14 @@
 				6AF8FBD61F14E69200C1D6CB /* KVObservableTests.swift */,
 			);
 			path = Observables;
+			sourceTree = "<group>";
+		};
+		6AF8FBDA1F14EC9700C1D6CB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6AF8FBDB1F14ECC400C1D6CB /* CGFloatTests.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -490,6 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AF8FBDC1F14ECC400C1D6CB /* CGFloatTests.swift in Sources */,
 				6A9BA6091F0FB4C90017C3F9 /* CutOutStateRangeDeltaYTransformerTests.swift in Sources */,
 				6AF8FBD71F14E69200C1D6CB /* KVObservableTests.swift in Sources */,
 				6AF8FBD21F14E1E800C1D6CB /* StateRangeTests.swift in Sources */,
