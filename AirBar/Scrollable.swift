@@ -60,3 +60,10 @@ extension UIScrollView: Scrollable {
     self.contentInset.bottom = bottomContentInset
   }
 }
+
+// MARK: - Scrollable + AirBar
+internal extension Scrollable {
+  func setBottomContentInsetToFillEmptySpace(heightDelta: CGFloat) {
+    self.contentInset.bottom = max(0, frame.height - heightDelta - contentSize.height)
+  }
+}

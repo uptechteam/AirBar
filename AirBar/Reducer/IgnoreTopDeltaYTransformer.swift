@@ -15,7 +15,7 @@ internal let ignoreTopDeltaYTransformer: ContentOffsetDeltaYTransformer = { para
     params.previousContentOffset.y < -start ||
       params.contentOffset.y < -start
   {
-    deltaY += min(0, params.previousContentOffset.y + params.scrollable.contentInset.top)
+    deltaY += min(0, params.previousContentOffset.y + start)
   }
 
   return deltaY

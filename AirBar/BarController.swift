@@ -76,7 +76,7 @@ public class BarController {
   }
 
   internal func preconfigure(scrollable: Scrollable) {
-    placeholdBottomInset(scrollable)
+    scrollable.setBottomContentInsetToFillEmptySpace(heightDelta: configuration.compactStateHeight)
 
     let isExpandedState = state.offset == -configuration.expandedStateHeight
 
@@ -99,10 +99,15 @@ public class BarController {
 
   public func expand(on: Bool) {
     guard let scrollable = scrollable else { return }
+
     if on { self.isExpandedStateAvailable = true }
+
     let targetContentOffsetY = on ? -configuration.expandedStateHeight : -configuration.normalStateHeight
     let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
     scrollable.updateContentOffset(targetContentOffset, animated: true)
+
+    let targetTopContentInset = on ? configuration.expandedStateHeight : configuration.normalStateHeight
+    scrollable.contentInset.top = targetTopContentInset
   }
   
   // MARK: - Private Methods
@@ -128,18 +133,6 @@ public class BarController {
     }
   }
 
-  private func placeholdBottomInset(_ scrollable: Scrollable) {
-    // Make sure that bar always expands and concats.
-    let targetBottomContentInset: CGFloat
-    if scrollable.contentSize.height < scrollable.frame.height - configuration.compactStateHeight {
-      targetBottomContentInset = scrollable.frame.height - configuration.compactStateHeight - scrollable.contentSize.height
-    } else {
-      targetBottomContentInset = 0
-    }
-
-    scrollable.contentInset.bottom = targetBottomContentInset
-  }
-
   // MARK: Scroll View Handlers
   private func contentOffsetChanged(previousValue: CGPoint?, newValue: CGPoint) {
     guard
@@ -163,9 +156,10 @@ public class BarController {
   
   private func contentSizeChanged(previousValue: CGSize?, newValue: CGSize) {
     guard let scrollable = scrollable else { return }
-    placeholdBottomInset(scrollable)
 
-    if scrollable.contentSize.height + state.height() < scrollable.frame.height {
+    scrollable.setBottomContentInsetToFillEmptySpace(heightDelta: configuration.compactStateHeight)
+
+    if scrollable.contentSize.height - state.offset < scrollable.frame.height {
       let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: state.offset)
       scrollable.updateContentOffset(targetContentOffset, animated: false)
     }
