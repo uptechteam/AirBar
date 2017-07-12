@@ -43,12 +43,19 @@ class BarControllerTests: XCTestCase {
     )
   }
 
+  func testInitialStateIsNormal() {
+    let scrollable = TestScrollable()
+
+    barController.set(scrollable: scrollable)
+
+    XCTAssertEqual(latestState?.offset, -200)
+  }
+
   func testStateReducerCallsOnContentOffsetChange() {
     let scrollable = TestScrollable()
 
     barController.set(scrollable: scrollable)
 
-    scrollable.contentOffset = CGPoint(x: 0, y: -200)
     scrollable.contentOffset = CGPoint(x: 0, y: -200)
     XCTAssertEqual(latestState?.height(), 200)
 
@@ -81,24 +88,23 @@ class BarControllerTests: XCTestCase {
     barController.set(scrollable: scrollable)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -200)
-    scrollable.contentOffset = CGPoint(x: 0, y: -200)
     scrollable.panGestureStateObservable.observer?(.began)
-    scrollable.contentOffset = CGPoint(x: 0, y: -200)
+    scrollable.contentOffset = CGPoint(x: 0, y: -210)
     XCTAssertEqual(latestReceivedStateReducerParams?.isExpandedStateAvailable, true)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -220)
     scrollable.panGestureStateObservable.observer?(.changed)
-    scrollable.contentOffset = CGPoint(x: 0, y: -220)
+    scrollable.contentOffset = CGPoint(x: 0, y: -230)
     XCTAssertEqual(latestReceivedStateReducerParams?.isExpandedStateAvailable, true)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -240)
     scrollable.panGestureStateObservable.observer?(.changed)
-    scrollable.contentOffset = CGPoint(x: 0, y: -240)
+    scrollable.contentOffset = CGPoint(x: 0, y: -250)
     XCTAssertEqual(latestReceivedStateReducerParams?.isExpandedStateAvailable, true)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -180)
     scrollable.panGestureStateObservable.observer?(.changed)
-    scrollable.contentOffset = CGPoint(x: 0, y: -180)
+    scrollable.contentOffset = CGPoint(x: 0, y: -170)
     XCTAssertEqual(latestReceivedStateReducerParams?.isExpandedStateAvailable, false)
   }
 
@@ -108,8 +114,6 @@ class BarControllerTests: XCTestCase {
     barController.set(scrollable: scrollable)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -200)
-    scrollable.contentOffset = CGPoint(x: 0, y: -200)
-
     scrollable.contentOffset = CGPoint(x: 0, y: -240)
     scrollable.panGestureStateObservable.observer?(.ended)
     XCTAssertEqual(scrollable._updateContentOffsetReceivedArgs?.0.y, -200)
@@ -158,7 +162,6 @@ class BarControllerTests: XCTestCase {
     barController.set(scrollable: scrollable)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -200)
-    scrollable.contentOffset = CGPoint(x: 0, y: -200)
 
     scrollable.panGestureStateObservable.observer?(.began)
 
@@ -177,7 +180,6 @@ class BarControllerTests: XCTestCase {
     barController.set(scrollable: scrollable)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -200)
-    scrollable.contentOffset = CGPoint(x: 0, y: -200)
 
     let secondScrollable = TestScrollable()
     barController.preconfigure(scrollable: secondScrollable)
@@ -191,7 +193,6 @@ class BarControllerTests: XCTestCase {
     let scrollable = TestScrollable()
     barController.set(scrollable: scrollable)
 
-    scrollable.contentOffset = CGPoint(x: 0, y: -200)
     scrollable.contentOffset = CGPoint(x: 0, y: -200)
 
     let secondScrollable = TestScrollable()

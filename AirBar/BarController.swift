@@ -69,6 +69,8 @@ public class BarController {
 
     preconfigure(scrollable: scrollable)
     setupObserving()
+
+    stateObserver(state)
   }
 
   public func preconfigure(scrollView: UIScrollView) {
@@ -83,8 +85,7 @@ public class BarController {
     scrollable.contentInset.top = isExpandedState ? configuration.expandedStateHeight : configuration.normalStateHeight
     scrollable.scrollIndicatorInsets.top = configuration.normalStateHeight
 
-    let currentContentOffsetY = scrollable.contentOffset.y
-    if currentContentOffsetY <= 0 || isExpandedState {
+    if scrollable.contentOffset.y <= 0 || isExpandedState {
       let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: state.offset)
       scrollable.updateContentOffset(targetContentOffset, animated: false)
     }
@@ -108,7 +109,7 @@ public class BarController {
     // Content offset observing.
     var previousContentOffset: CGPoint?
     contentOffsetObservable?.observer = { [weak self] contentOffset in
-      let contentOffset = CGPoint(x: contentOffset.x, y: contentOffset.y.rounded(.toNearestOrEven))
+      guard previousContentOffset != contentOffset else { return }
       self?.contentOffsetChanged(previousValue: previousContentOffset, newValue: contentOffset)
       previousContentOffset = contentOffset
     }
@@ -116,6 +117,7 @@ public class BarController {
     // Content size observing.
     var previousContentSize: CGSize?
     contentSizeObservable?.observer = { [weak self] contentSize in
+      guard previousContentSize != contentSize else { return }
       self?.contentSizeChanged(previousValue: previousContentSize, newValue: contentSize)
       previousContentSize = contentSize
     }
@@ -150,12 +152,7 @@ public class BarController {
   private func contentSizeChanged(previousValue: CGSize?, newValue: CGSize) {
     guard let scrollable = scrollable else { return }
 
-    scrollable.setBottomContentInsetToFillEmptySpace(heightDelta: configuration.compactStateHeight)
-
-    if scrollable.contentSize.height - state.offset < scrollable.frame.height {
-      let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: state.offset)
-      scrollable.updateContentOffset(targetContentOffset, animated: false)
-    }
+    preconfigure(scrollable: scrollable)
   }
 
   // MARK: Pan Gesture Handlers

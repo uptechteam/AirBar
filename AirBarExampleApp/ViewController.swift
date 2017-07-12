@@ -197,7 +197,7 @@ class ViewController: UIViewController {
   }
 
   @IBAction func handleReloadButtonPressed(_ sender: UIButton) {
-    numberOfItems = 1 + Int(arc4random_uniform(30))
+    numberOfItems = 1 + Int(arc4random_uniform(20))
     firstTableView.reloadData()
     secondTableView.reloadData()
   }

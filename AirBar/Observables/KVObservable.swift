@@ -30,7 +30,7 @@ internal class KVObservable<Value>: Observable<Value> {
     else {
       return
     }
-    
+
     observer?(newValue)
   }
 }

@@ -12,7 +12,7 @@ internal let ignoreBottomDeltaYTransformer: ContentOffsetDeltaYTransformer = { p
   let end = params.scrollable.contentSize.height - params.scrollable.frame.height + params.scrollable.contentInset.bottom
 
   if params.previousContentOffset.y > end ||
-    params.previousContentOffset.y > end
+      params.contentOffset.y > end
   {
     deltaY += max(0, params.previousContentOffset.y - end)
   }
