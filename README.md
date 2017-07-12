@@ -33,6 +33,9 @@ github "uptechteam/AirBar" ~> 2.0
 
 Also you can find example application in library project.
 
-## To do
+## Multiple UIScrollView objects
+`BarController` supports using multiple `UIScrollView` objects. You can use `preconfigure(scrollView: UIScrollView)` method to configure scrolling view before setting it with `set(scrollView: UIScrollView)` method. 
+
+## TODO
 - Implement expansion/concatination resistance;
 - ...
