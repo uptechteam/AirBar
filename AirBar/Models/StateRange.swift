@@ -6,7 +6,7 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-public enum StateRange {
+internal enum StateRange {
   case compactNormal
   case normalExpanded
 
