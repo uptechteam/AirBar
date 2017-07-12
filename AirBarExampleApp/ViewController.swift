@@ -249,7 +249,7 @@ class ViewController: UIViewController {
 
     expandedView.alpha = state.value(compactNormalRange: .value(0), normalExpandedRange: .range(0, 1)) // <~ Animated property
 
-    backButton.alpha = state.value(compactNormalRange: .value(0), normalExpandedRange: .range(0, 1)) // <~ Animated property
+    backButton.alpha = state.value(compactNormalRange: .value(0), normalExpandedRange: .range(-1, 1)) // <~ Animated property
 
     lightMenuView.alpha = state.value(compactNormalRange: .range(0, 1), normalExpandedRange: .value(1)) // <~ Animated property
 
