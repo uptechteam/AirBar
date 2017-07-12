@@ -1,27 +1,38 @@
-![AirBar](/Logo/Logo.png)
-![pod](https://img.shields.io/cocoapods/v/AirBar.svg) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+<p align="center">
+	<a href="https://github.com/uptechteam/AirBar/"><img src="Logo/Logo.png" alt="AirBar" width="600" height="120" /></a><br /><br />
+  UIScrollView driven expandable menu. <br /><br />
+  <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
+</p>
+<br />
+
+## Description
+
+AirBar is a library for creating cool expandable menus.
+Library observes UIScrollView scroll and provides state you can apply to your UI elements.
 
 ## Demo
 ![AirBar Demo](/Logo/Demo.gif)
 
-## Description
-
-AirBar is a library for creating `UIScrollView` driven expandable menus.
-To make library is flexible as possible there is no UI elements provided inside. You need to implement all UIKit transformations by yourself.
-
+## Installation
+Library supports [Carthage](https://github.com/Carthage/Carthage) dependency manager. To install AirBar add following line to Cartfile in the root folder of your project.
+```
+github "uptechteam/AirBar" ~> 2.0
+```
 ## How to use
 
-1) Create AirBarControllerConfiguration object.
+1) Create `BarController` object using `BarController(configuration Configuration, stateObserver: StateObserver)` initializer, where `Configuration` is struct that contains height config and `StateObserver` is closure that will be called on state change.
 
-2) Create AirBarController object with UIScrollView object and AirBarControllerConfiguration object.
+2) Bind `BarController` to your `UIScrollView` object using `set(scrollView: UIScrollView)` method. 
 
-3) Conform your UIViewController subclass with AirBarControllerDelegate protocol.
+3) Provide UI transformations in closure passed as `StateObserver` init argument. Closure will receive `State` object that has following public methods:
+- `height()` - returns bar height;
+- `transitionProgress()` - returns bar transition progress between 0 and 2, where 0 - compact state, 1 - normal state, 2 - expanded state;
+- `value(compactNormalRange: ValueRangeType, normalExpandedRange: ValueRangeType)` - returns transformed CGFloat value that can be used for configuring UIKit element properties. `ValueRangeType` is enum with `.range(CGFloat, CGFloat)` and `.value(CGFloat)` cases. You can use it for example if you need static value `1` in normal-expanded transition and range (0, 1) in compact-normal transition.
 
-4) Set your view controller object to `delegate` property of AirBarController.
+4) (Optional) Contribute to repository.
 
-5) Provide view transformations in following method:
-```swift
-func airBarController(_ controller: AirBarController, didChangeStateTo state: CGFloat, withHeight height: CGFloat)
-```
+Also you can find example application in library project.
 
-Also you can use AirBarExample application provided in repo.
+## To do
+- Implement expansion/concatination resistance;
+- ...
