@@ -44,6 +44,27 @@ public extension State {
     let reversedProgressBounds = (progressBounds.1, progressBounds.0)
     return offset.map(from: offsetBounds, to: reversedProgressBounds)
   }
+
+  public enum ValueRangeType {
+    case value(CGFloat)
+    case range(CGFloat, CGFloat)
+
+    internal var range: (CGFloat, CGFloat) {
+      switch self {
+      case let .value(value):
+        return (value, value)
+      case let .range(range):
+        return range
+      }
+    }
+  }
+
+  public func value(compactNormalRange: ValueRangeType, normalExpandedRange: ValueRangeType) -> CGFloat {
+    let progress = self.transitionProgress()
+    let stateRange = self.stateRange()
+    let valueRange = stateRange == .compactNormal ? compactNormalRange : normalExpandedRange
+    return progress.map(from: stateRange.progressBounds(), to: valueRange.range)
+  }
 }
 
 extension State: Equatable {

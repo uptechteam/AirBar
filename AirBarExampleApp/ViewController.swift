@@ -72,10 +72,13 @@ class ViewController: UIViewController {
     view.insertSubview(secondTableView, at: 0)
 
     backgroundView = UIImageView(image: #imageLiteral(resourceName: "grad"))
+    backgroundView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: Constants.normalStateHeight)
 
     darkMenuView = UINib(nibName: "MenuView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! MenuView
+    darkMenuView.frame = CGRect(x: 0, y: Constants.normalStateHeight - 40, width: view.frame.width, height: view.frame.height)
     darkMenuView.setStyle(light: false)
     lightMenuView = UINib(nibName: "MenuView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! MenuView
+    lightMenuView.frame = darkMenuView.frame
     lightMenuView.setStyle(light: true)
 
     normalView = UINib(nibName: "NormalView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! NormalView
@@ -110,8 +113,8 @@ class ViewController: UIViewController {
       expandedStateHeight: Constants.expandedStateHeight
     )
     
-    let barStateObserver: (AirBar.State) -> Void = { state in
-      self.airBarController(self.barController, didChangeStateTo: state.transitionProgress(), withHeight: state.height())
+    let barStateObserver: (AirBar.State) -> Void = { [weak self] state in
+      self?.handleBarControllerStateChanged(state: state)
     }
     
     barController = BarController(configuration: configuration, stateObserver: barStateObserver)
@@ -203,6 +206,64 @@ class ViewController: UIViewController {
     guard let secondTableViewShown = secondTableViewShown else { return }
     toggleSecondTable(on: !secondTableViewShown)
   }
+
+  // MARK: - BarController Handler
+  private func handleBarControllerStateChanged(state: State) {
+    let height = state.height()
+    let transitionProgress = state.transitionProgress()
+
+    shouldHideStatusBar = transitionProgress > 0 && transitionProgress < 1
+    prefersStatusBarStyle = transitionProgress > 0.5 ? .lightContent : .default
+
+    airBar.frame = CGRect(
+      x: airBar.frame.origin.x,
+      y: airBar.frame.origin.y,
+      width: airBar.frame.width,
+      height: height // <~ Animated property
+    )
+
+    backgroundView.frame = CGRect(
+      x: backgroundView.frame.origin.x,
+      y: backgroundView.frame.origin.y,
+      width: backgroundView.frame.width,
+      height: height // <~ Animated property
+    )
+
+    backgroundView.alpha = state.value(compactNormalRange: .range(0, 1), normalExpandedRange: .value(1)) // <~ Animated property
+
+    normalView.frame = CGRect(
+      x: normalView.frame.origin.x,
+      y: state.value(compactNormalRange: .range(-24, 40), normalExpandedRange: .range(40, 80)), // <~ Animated property
+      width: normalView.frame.width,
+      height: normalView.frame.height
+    )
+
+    normalView.alpha = state.value(compactNormalRange: .range(0, 1), normalExpandedRange: .range(1, 0)) // <~ Animated property
+
+    expandedView.frame = CGRect(
+      x: expandedView.frame.origin.x,
+      y: state.value(compactNormalRange: .value(40), normalExpandedRange: .range(40, 80)),
+      width: expandedView.frame.width,
+      height: state.value(compactNormalRange: .value(44), normalExpandedRange: .range(44, 164))
+    )
+
+    expandedView.alpha = state.value(compactNormalRange: .value(0), normalExpandedRange: .range(0, 1)) // <~ Animated property
+
+    backButton.alpha = state.value(compactNormalRange: .value(0), normalExpandedRange: .range(0, 1)) // <~ Animated property
+
+    lightMenuView.alpha = state.value(compactNormalRange: .range(0, 1), normalExpandedRange: .value(1)) // <~ Animated property
+
+    darkMenuView.alpha = state.value(compactNormalRange: .range(1, 0), normalExpandedRange: .value(0)) // <~ Animated property
+
+    lightMenuView.frame = CGRect(
+      x: lightMenuView.frame.origin.x,
+      y: height - 40, // <~ Animated property
+      width: lightMenuView.frame.width,
+      height: lightMenuView.frame.height
+    )
+
+    darkMenuView.frame = lightMenuView.frame
+  }
 }
 
 // MARK: - UITableViewDataSource
@@ -214,58 +275,5 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     return tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
-  }
-}
-
-// MARK: - AirBarControllerDelegate
-
-extension ViewController {
-  func airBarController(_ controller: BarController, didChangeStateTo state: CGFloat, withHeight height: CGFloat) {
-    shouldHideStatusBar = state > 0 && state < 1
-    prefersStatusBarStyle = state > 0.5 ? .lightContent : .default
-
-    let airBarFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: height)
-    let backgroundViewAlpha: CGFloat
-    let normalViewY: CGFloat
-    let normalViewAlpha: CGFloat
-    let expandedViewY: CGFloat
-    let expandedViewAlpha: CGFloat
-    let backButtonAlpha: CGFloat
-    let lightMenuViewAlpha: CGFloat
-    let darkMenuViewAlpha: CGFloat
-    let menuViewY: CGFloat = height - 40
-
-    if state < 1 {
-      backgroundViewAlpha = state
-      normalViewY = state.map(from: (0, 1), to: (-24, 40))
-      normalViewAlpha = state
-      expandedViewY = 40
-      expandedViewAlpha = 0
-      backButtonAlpha = 0
-      lightMenuViewAlpha = state.map(from: (0, 1), to: (0, 1))
-      darkMenuViewAlpha = state.map(from: (0, 1), to: (1, 0))
-    } else {
-      backgroundViewAlpha = 1
-      normalViewY = state.map(from: (1, 2), to: (40, 80))
-      normalViewAlpha = state.map(from: (1, 2), to: (1, 0))
-      expandedViewY = state.map(from: (1, 2), to: (40, 80))
-      expandedViewAlpha = state.map(from: (1, 2), to: (0, 1))
-      backButtonAlpha = state.map(from: (1.5, 2), to: (0, 1))
-      lightMenuViewAlpha = 1
-      darkMenuViewAlpha = 0
-    }
-
-    airBar.frame = airBarFrame
-    backgroundView.frame = airBarFrame
-    backgroundView.alpha = backgroundViewAlpha
-    normalView.frame = CGRect(x: 0, y: normalViewY, width: view.frame.width, height: view.frame.height)
-    normalView.alpha = normalViewAlpha
-    expandedView.frame = CGRect(x: 0, y: expandedViewY, width: view.frame.width, height: menuViewY - expandedViewY)
-    expandedView.alpha = expandedViewAlpha
-    backButton.alpha = backButtonAlpha
-    lightMenuView.alpha = lightMenuViewAlpha
-    darkMenuView.alpha = darkMenuViewAlpha
-    lightMenuView.frame = CGRect(x: 0, y: menuViewY, width: view.frame.width, height: 40)
-    darkMenuView.frame = lightMenuView.frame
   }
 }
