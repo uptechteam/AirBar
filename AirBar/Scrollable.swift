@@ -35,6 +35,7 @@ extension UIScrollView: Scrollable {
   }
   
   func updateContentOffset(_ contentOffset: CGPoint, animated: Bool) {
+    // Stops native deceleration.
     setContentOffset(self.contentOffset, animated: false)
 
     let animate = {

@@ -19,15 +19,13 @@ class CutOutStateRangeDeltaYTransformerTests: XCTestCase {
     )
     let previousContentOffset = CGPoint(x: 0, y: -280)
     let contentOffset = CGPoint(x: 0, y: -330)
-    let isExpandedStateAvailable = true
-    let state = State(offset: -280, configuration: configuration)
+    let state = State(offset: -280, isExpandedStateAvailable: true, configuration: configuration)
 
     let params = ContentOffsetDeltaYTransformerParameters(
       scrollable: scrollable,
       configuration: configuration,
       previousContentOffset: previousContentOffset,
       contentOffset: contentOffset,
-      isExpandedStateAvailable: isExpandedStateAvailable,
       state: state,
       contentOffsetDeltaY: contentOffset.y - previousContentOffset.y
     )
@@ -45,15 +43,13 @@ class CutOutStateRangeDeltaYTransformerTests: XCTestCase {
     )
     let previousContentOffset = CGPoint(x: 0, y: -180)
     let contentOffset = CGPoint(x: 0, y: -230)
-    let isExpandedStateAvailable = false
-    let state = State(offset: -180, configuration: configuration)
+    let state = State(offset: -180, isExpandedStateAvailable: false, configuration: configuration)
 
     let params = ContentOffsetDeltaYTransformerParameters(
       scrollable: scrollable,
       configuration: configuration,
       previousContentOffset: previousContentOffset,
       contentOffset: contentOffset,
-      isExpandedStateAvailable: isExpandedStateAvailable,
       state: state,
       contentOffsetDeltaY: contentOffset.y - previousContentOffset.y
     )
@@ -71,15 +67,13 @@ class CutOutStateRangeDeltaYTransformerTests: XCTestCase {
     )
     let previousContentOffset = CGPoint(x: 0, y: 200)
     let contentOffset = CGPoint(x: 0, y: 250)
-    let isExpandedStateAvailable = true
-    let state = State(offset: -130, configuration: configuration)
+    let state = State(offset: -130, isExpandedStateAvailable: true, configuration: configuration)
 
     let params = ContentOffsetDeltaYTransformerParameters(
       scrollable: scrollable,
       configuration: configuration,
       previousContentOffset: previousContentOffset,
       contentOffset: contentOffset,
-      isExpandedStateAvailable: isExpandedStateAvailable,
       state: state,
       contentOffsetDeltaY: contentOffset.y - previousContentOffset.y
     )

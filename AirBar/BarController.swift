@@ -10,6 +10,12 @@ import UIKit
 
 public typealias StateObserver = (State) -> Void
 
+private struct ScrollableObservables {
+  let contentOffset: Observable<CGPoint>
+  let contentSize: Observable<CGSize>
+  let panGestureState: Observable<UIGestureRecognizerState>
+}
+
 public class BarController {
   
   private let stateReducer: StateReducer
@@ -21,10 +27,7 @@ public class BarController {
   }
   
   private weak var scrollable: Scrollable?
-  private var contentOffsetObservable: Observable<CGPoint>?
-  private var contentSizeObservable: Observable<CGSize>?
-  private var panGestureStateObservable: Observable<UIGestureRecognizerState>?
-  private var isExpandedStateAvailable = false
+  private var observables: ScrollableObservables?
   
   // MARK: - Lifecycle
   internal init(
@@ -35,7 +38,11 @@ public class BarController {
     self.stateReducer = stateReducer
     self.configuration = configuration
     self.stateObserver = stateObserver
-    self.state = State(offset: -configuration.normalStateHeight, configuration: configuration)
+    self.state = State(
+      offset: -configuration.normalStateHeight,
+      isExpandedStateAvailable: false,
+      configuration: configuration
+    )
   }
   
   public convenience init(
@@ -63,9 +70,11 @@ public class BarController {
   
   internal func set(scrollable: Scrollable) {
     self.scrollable = scrollable
-    self.contentOffsetObservable = scrollable.contentOffsetObservable
-    self.contentSizeObservable = scrollable.contentSizeObservable
-    self.panGestureStateObservable = scrollable.panGestureStateObservable
+    self.observables = ScrollableObservables(
+      contentOffset: scrollable.contentOffsetObservable,
+      contentSize: scrollable.contentSizeObservable,
+      panGestureState: scrollable.panGestureStateObservable
+    )
 
     preconfigure(scrollable: scrollable)
     setupObserving()
@@ -80,10 +89,10 @@ public class BarController {
   internal func preconfigure(scrollable: Scrollable) {
     scrollable.setBottomContentInsetToFillEmptySpace(heightDelta: configuration.compactStateHeight)
 
-    scrollable.contentInset.top = state.offset <= -configuration.normalStateHeight && isExpandedStateAvailable ? configuration.expandedStateHeight : configuration.normalStateHeight
+    scrollable.contentInset.top = state.offset <= -configuration.normalStateHeight && state.isExpandedStateAvailable ? configuration.expandedStateHeight : configuration.normalStateHeight
     scrollable.scrollIndicatorInsets.top = configuration.normalStateHeight
 
-    if scrollable.contentOffset.y <= 0 || (state.offset < -configuration.normalStateHeight && isExpandedStateAvailable) {
+    if scrollable.contentOffset.y <= 0 || (state.offset < -configuration.normalStateHeight && state.isExpandedStateAvailable) {
       let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: state.offset)
       scrollable.updateContentOffset(targetContentOffset, animated: false)
     }
@@ -92,7 +101,7 @@ public class BarController {
   public func expand(on: Bool) {
     guard let scrollable = scrollable else { return }
 
-    if on { self.isExpandedStateAvailable = true }
+    if on { state = state.set(isExpandedStateAvailable: true) }
 
     let targetContentOffsetY = on ? -configuration.expandedStateHeight : -configuration.normalStateHeight
     let targetContentOffset = CGPoint(x: scrollable.contentOffset.x, y: targetContentOffsetY)
@@ -104,9 +113,11 @@ public class BarController {
   
   // MARK: - Private Methods
   private func setupObserving() {
+    guard let observables = observables else { return }
+
     // Content offset observing.
     var previousContentOffset: CGPoint?
-    contentOffsetObservable?.observer = { [weak self] contentOffset in
+    observables.contentOffset.observer = { [weak self] contentOffset in
       guard previousContentOffset != contentOffset else { return }
       self?.contentOffsetChanged(previousValue: previousContentOffset, newValue: contentOffset)
       previousContentOffset = contentOffset
@@ -114,14 +125,14 @@ public class BarController {
     
     // Content size observing.
     var previousContentSize: CGSize?
-    contentSizeObservable?.observer = { [weak self] contentSize in
+    observables.contentSize.observer = { [weak self] contentSize in
       guard previousContentSize != contentSize else { return }
       self?.contentSizeChanged(previousValue: previousContentSize, newValue: contentSize)
       previousContentSize = contentSize
     }
     
     // Pan gesture state observing.
-    panGestureStateObservable?.observer = { [weak self] state in
+    observables.panGestureState.observer = { [weak self] state in
       self?.panGestureStateChanged(state: state)
     }
   }
@@ -140,7 +151,6 @@ public class BarController {
       configuration: configuration,
       previousContentOffset: previousValue,
       contentOffset: newValue,
-      isExpandedStateAvailable: isExpandedStateAvailable,
       state: state
     )
 
@@ -171,18 +181,18 @@ public class BarController {
     guard let scrollable = scrollable else { return }
 
     let isScrollingAtTop = scrollable.contentOffset.y.isNear(to: -configuration.normalStateHeight, delta: 5)
-    let isExpandedStatePreviouslyAvailable = scrollable.contentOffset.y < -configuration.normalStateHeight && isExpandedStateAvailable
-    isExpandedStateAvailable = isScrollingAtTop || isExpandedStatePreviouslyAvailable
+    let isExpandedStatePreviouslyAvailable = scrollable.contentOffset.y < -configuration.normalStateHeight && state.isExpandedStateAvailable
+    state = state.set(isExpandedStateAvailable: isScrollingAtTop || isExpandedStatePreviouslyAvailable)
 
-    scrollable.contentInset.top = isExpandedStateAvailable ? configuration.expandedStateHeight : configuration.normalStateHeight
+    scrollable.contentInset.top = state.isExpandedStateAvailable ? configuration.expandedStateHeight : configuration.normalStateHeight
   }
 
   private func panGestureChanged() {
     guard let scrollable = scrollable else { return }
 
-    if isExpandedStateAvailable {
+    if state.isExpandedStateAvailable {
       if scrollable.contentOffset.y > -configuration.normalStateHeight {
-        isExpandedStateAvailable = false
+        state = state.set(isExpandedStateAvailable: false)
         scrollable.contentInset.top = configuration.normalStateHeight
       }
     }

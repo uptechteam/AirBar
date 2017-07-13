@@ -11,7 +11,6 @@ internal struct StateReducerParameters {
   let configuration: Configuration
   let previousContentOffset: CGPoint
   let contentOffset: CGPoint
-  let isExpandedStateAvailable: Bool
   let state: State
 }
 
@@ -22,7 +21,6 @@ internal struct ContentOffsetDeltaYTransformerParameters {
   let configuration: Configuration
   let previousContentOffset: CGPoint
   let contentOffset: CGPoint
-  let isExpandedStateAvailable: Bool
   let state: State
   let contentOffsetDeltaY: CGFloat
 }
@@ -39,7 +37,6 @@ internal func makeDefaultStateReducer(transformers: [ContentOffsetDeltaYTransfor
         configuration: params.configuration,
         previousContentOffset: params.previousContentOffset,
         contentOffset: params.contentOffset,
-        isExpandedStateAvailable: params.isExpandedStateAvailable,
         state: params.state,
         contentOffsetDeltaY: deltaY
       )

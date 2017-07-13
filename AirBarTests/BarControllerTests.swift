@@ -90,22 +90,22 @@ class BarControllerTests: XCTestCase {
     scrollable.contentOffset = CGPoint(x: 0, y: -200)
     scrollable.panGestureStateObservable.observer?(.began)
     scrollable.contentOffset = CGPoint(x: 0, y: -210)
-    XCTAssertEqual(latestReceivedStateReducerParams?.isExpandedStateAvailable, true)
+    XCTAssertEqual(latestState?.isExpandedStateAvailable, true)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -220)
     scrollable.panGestureStateObservable.observer?(.changed)
     scrollable.contentOffset = CGPoint(x: 0, y: -230)
-    XCTAssertEqual(latestReceivedStateReducerParams?.isExpandedStateAvailable, true)
+    XCTAssertEqual(latestState?.isExpandedStateAvailable, true)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -240)
     scrollable.panGestureStateObservable.observer?(.changed)
     scrollable.contentOffset = CGPoint(x: 0, y: -250)
-    XCTAssertEqual(latestReceivedStateReducerParams?.isExpandedStateAvailable, true)
+    XCTAssertEqual(latestState?.isExpandedStateAvailable, true)
 
     scrollable.contentOffset = CGPoint(x: 0, y: -180)
     scrollable.panGestureStateObservable.observer?(.changed)
     scrollable.contentOffset = CGPoint(x: 0, y: -170)
-    XCTAssertEqual(latestReceivedStateReducerParams?.isExpandedStateAvailable, false)
+    XCTAssertEqual(latestState?.isExpandedStateAvailable, false)
   }
 
   func testPanGestureEndUpdatesContentOffsetToNearestState() {

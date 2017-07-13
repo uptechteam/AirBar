@@ -8,10 +8,12 @@
 
 public struct State {
   internal let offset: CGFloat
+  internal let isExpandedStateAvailable: Bool
   internal let configuration: Configuration
 
-  internal init(offset: CGFloat, configuration: Configuration) {
+  internal init(offset: CGFloat, isExpandedStateAvailable: Bool, configuration: Configuration) {
     self.offset = offset
+    self.isExpandedStateAvailable = isExpandedStateAvailable
     self.configuration = configuration
   }
 
@@ -24,11 +26,23 @@ public struct State {
   }
 
   internal func set(offset: CGFloat) -> State {
-    return State(offset: offset, configuration: configuration)
+    return State(
+      offset: offset,
+      isExpandedStateAvailable: isExpandedStateAvailable,
+      configuration: configuration
+    )
   }
 
   internal func add(offset: CGFloat) -> State {
     return set(offset: self.offset + offset)
+  }
+
+  internal func set(isExpandedStateAvailable: Bool) -> State {
+    return State(
+      offset: offset,
+      isExpandedStateAvailable: isExpandedStateAvailable,
+      configuration: configuration
+    )
   }
 }
 

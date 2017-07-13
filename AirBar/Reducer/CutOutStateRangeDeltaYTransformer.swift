@@ -12,7 +12,7 @@ internal let cutOutStateRangeDeltaYTransformer: ContentOffsetDeltaYTransformer =
   if deltaY > 0 {
     deltaY = min(-params.configuration.compactStateHeight, (params.state.offset + deltaY)) - params.state.offset
   } else {
-    let maxStateHeight = params.isExpandedStateAvailable ? params.configuration.expandedStateHeight : params.configuration.normalStateHeight
+    let maxStateHeight = params.state.isExpandedStateAvailable ? params.configuration.expandedStateHeight : params.configuration.normalStateHeight
     deltaY = max(-maxStateHeight, (params.state.offset + deltaY)) - params.state.offset
   }
 

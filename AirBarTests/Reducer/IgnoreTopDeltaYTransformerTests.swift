@@ -20,15 +20,13 @@ class IgnoreTopDeltaYTransformerTests: XCTestCase {
     )
     let previousContentOffset = CGPoint(x: 0, y: -240)
     let contentOffset = CGPoint(x: 0, y: -180)
-    let isExpandedStateAvailable = true
-    let state = State(offset: -200, configuration: configuration)
+    let state = State(offset: -200, isExpandedStateAvailable: true, configuration: configuration)
 
     let params = ContentOffsetDeltaYTransformerParameters(
       scrollable: scrollable,
       configuration: configuration,
       previousContentOffset: previousContentOffset,
       contentOffset: contentOffset,
-      isExpandedStateAvailable: isExpandedStateAvailable,
       state: state,
       contentOffsetDeltaY: contentOffset.y - previousContentOffset.y
     )

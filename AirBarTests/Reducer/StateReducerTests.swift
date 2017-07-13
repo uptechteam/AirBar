@@ -19,8 +19,7 @@ class StateReducerTests: XCTestCase {
     )
     let previousContentOffset = CGPoint(x: 0, y: 200)
     let contentOffset = CGPoint(x: 0, y: 240)
-    let isExpandedStateAvailable = true
-    let state = State(offset: 100, configuration: configuration)
+    let state = State(offset: 100, isExpandedStateAvailable: true, configuration: configuration)
 
     var testFirstTransformerReceivedParams: ContentOffsetDeltaYTransformerParameters?
     let testFirstTransformer: ContentOffsetDeltaYTransformer = { params in
@@ -45,33 +44,29 @@ class StateReducerTests: XCTestCase {
       configuration: configuration,
       previousContentOffset: previousContentOffset,
       contentOffset: contentOffset,
-      isExpandedStateAvailable: isExpandedStateAvailable,
       state: state
     )
 
     let stateReducer = makeDefaultStateReducer(transformers: [testFirstTransformer, testSecondTransformer, testThirdTransformer])
     let receivedState = stateReducer(params)
-    let expectedState = State(offset: 215, configuration: configuration)
+    let expectedState = State(offset: 215, isExpandedStateAvailable: true, configuration: configuration)
     XCTAssertEqual(receivedState, expectedState)
 
     XCTAssertEqual(testFirstTransformerReceivedParams?.configuration, configuration)
     XCTAssertEqual(testFirstTransformerReceivedParams?.previousContentOffset, previousContentOffset)
     XCTAssertEqual(testFirstTransformerReceivedParams?.contentOffset, contentOffset)
-    XCTAssertEqual(testFirstTransformerReceivedParams?.isExpandedStateAvailable, isExpandedStateAvailable)
     XCTAssertEqual(testFirstTransformerReceivedParams?.state, state)
     XCTAssertEqual(testFirstTransformerReceivedParams?.contentOffsetDeltaY, 40)
 
     XCTAssertEqual(testSecondTransformerReceivedParams?.configuration, configuration)
     XCTAssertEqual(testSecondTransformerReceivedParams?.previousContentOffset, previousContentOffset)
     XCTAssertEqual(testSecondTransformerReceivedParams?.contentOffset, contentOffset)
-    XCTAssertEqual(testSecondTransformerReceivedParams?.isExpandedStateAvailable, isExpandedStateAvailable)
     XCTAssertEqual(testSecondTransformerReceivedParams?.state, state)
     XCTAssertEqual(testSecondTransformerReceivedParams?.contentOffsetDeltaY, 60)
 
     XCTAssertEqual(testThirdTransformerReceivedParams?.configuration, configuration)
     XCTAssertEqual(testThirdTransformerReceivedParams?.previousContentOffset, previousContentOffset)
     XCTAssertEqual(testThirdTransformerReceivedParams?.contentOffset, contentOffset)
-    XCTAssertEqual(testThirdTransformerReceivedParams?.isExpandedStateAvailable, isExpandedStateAvailable)
     XCTAssertEqual(testThirdTransformerReceivedParams?.state, state)
     XCTAssertEqual(testThirdTransformerReceivedParams?.contentOffsetDeltaY, 90)
   }
