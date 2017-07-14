@@ -190,11 +190,9 @@ public class BarController {
   private func panGestureChanged() {
     guard let scrollable = scrollable else { return }
 
-    if state.isExpandedStateAvailable {
-      if scrollable.contentOffset.y > -configuration.normalStateHeight {
-        state = state.set(isExpandedStateAvailable: false)
-        scrollable.contentInset.top = configuration.normalStateHeight
-      }
+    if state.isExpandedStateAvailable && scrollable.contentOffset.y > -configuration.normalStateHeight {
+      state = state.set(isExpandedStateAvailable: false)
+      scrollable.contentInset.top = configuration.normalStateHeight
     }
   }
 

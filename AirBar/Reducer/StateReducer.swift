@@ -31,7 +31,7 @@ internal func makeDefaultStateReducer(transformers: [ContentOffsetDeltaYTransfor
   return { (params: StateReducerParameters) -> State in
     var deltaY = params.contentOffset.y - params.previousContentOffset.y
 
-    deltaY = transformers.reduce(deltaY) { (deltaY, middleware) -> CGFloat in
+    deltaY = transformers.reduce(deltaY) { (deltaY, transformer) -> CGFloat in
       let params = ContentOffsetDeltaYTransformerParameters(
         scrollable: params.scrollable,
         configuration: params.configuration,
@@ -40,7 +40,7 @@ internal func makeDefaultStateReducer(transformers: [ContentOffsetDeltaYTransfor
         state: params.state,
         contentOffsetDeltaY: deltaY
       )
-      return middleware(params)
+      return transformer(params)
     }
 
     return params.state.add(offset: deltaY)

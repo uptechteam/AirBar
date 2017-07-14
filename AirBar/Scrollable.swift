@@ -51,14 +51,6 @@ extension UIScrollView: Scrollable {
       animate()
     }, completion: nil)
   }
-  
-  func updateTopContentInset(_ topContentInset: CGFloat) {
-    self.contentInset.top = topContentInset
-  }
-
-  func updateBottomContentInset(_ bottomContentInset: CGFloat) {
-    self.contentInset.bottom = bottomContentInset
-  }
 }
 
 // MARK: - Scrollable + AirBar
