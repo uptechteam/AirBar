@@ -11,6 +11,18 @@ public struct Configuration {
   let normalStateHeight: CGFloat
   let expandedStateHeight: CGFloat
 
+  public init(
+    compactStateHeight: CGFloat,
+    normalStateHeight: CGFloat,
+    expandedStateHeight: CGFloat
+  ) {
+    self.compactStateHeight = compactStateHeight
+    self.normalStateHeight = normalStateHeight
+    self.expandedStateHeight = expandedStateHeight
+  }
+}
+
+extension Configuration {
   internal func offsetBounds(for stateRange: StateRange) -> (CGFloat, CGFloat) {
     switch stateRange {
     case .compactNormal:
