@@ -18,6 +18,12 @@ Library supports [Carthage](https://github.com/Carthage/Carthage) dependency man
 ```
 github "uptechteam/AirBar" ~> 2.0
 ```
+
+Or if you prefer using [CocoaPods](https://github.com/CocoaPods/CocoaPods) add following line to your project Podfile
+```
+pod 'AirBar', '~> 2.0'
+```
+
 ## How to use
 
 1) Create `BarController` object using `BarController(configuration Configuration, stateObserver: StateObserver)` initializer, where `Configuration` is struct that contains height config and `StateObserver` is closure that will be called on state change.
