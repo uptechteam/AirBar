@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "AirBar"
-  spec.version = "0.0.1"
+  spec.version = "2.0.3"
   spec.summary = "Airbnb expandable bar."
   spec.homepage = "https://github.com/uptechteam/AirBar"
   spec.license = { type: 'MIT', file: 'LICENSE' }
