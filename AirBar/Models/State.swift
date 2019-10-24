@@ -6,6 +6,8 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
+import UIKit
+
 public struct State {
   internal let offset: CGFloat
   internal let isExpandedStateAvailable: Bool

@@ -6,6 +6,8 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
+import UIKit
+
 internal let ignoreTopDeltaYTransformer: ContentOffsetDeltaYTransformer = { params -> CGFloat in
   var deltaY = params.contentOffsetDeltaY
 

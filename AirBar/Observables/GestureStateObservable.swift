@@ -6,6 +6,8 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
+import UIKit
+
 internal class GestureStateObservable: Observable<UIGestureRecognizer.State> {
   private weak var gestureRecognizer: UIGestureRecognizer?
   

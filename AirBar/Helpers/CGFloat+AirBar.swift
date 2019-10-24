@@ -6,6 +6,8 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
+import UIKit
+
 internal extension CGFloat {
   func isNear(to number: CGFloat, delta: CGFloat) -> Bool {
     return self >= (number - delta) && self <= (number + delta)

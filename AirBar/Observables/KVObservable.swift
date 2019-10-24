@@ -6,6 +6,8 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
+import Foundation
+
 internal class KVObservable<Value>: Observable<Value> {
   private let keyPath: String
   private weak var object: AnyObject?
