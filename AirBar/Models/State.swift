@@ -47,11 +47,11 @@ public struct State {
 }
 
 public extension State {
-  public func height() -> CGFloat {
+  func height() -> CGFloat {
     return -offset
   }
 
-  public func transitionProgress() -> CGFloat {
+  func transitionProgress() -> CGFloat {
     let stateRange = self.stateRange()
     let offsetBounds = configuration.offsetBounds(for: stateRange)
     let progressBounds = stateRange.progressBounds()
@@ -59,7 +59,7 @@ public extension State {
     return offset.map(from: offsetBounds, to: reversedProgressBounds)
   }
 
-  public enum ValueRangeType {
+  enum ValueRangeType {
     case value(CGFloat)
     case range(CGFloat, CGFloat)
 
@@ -73,7 +73,7 @@ public extension State {
     }
   }
 
-  public func value(compactNormalRange: ValueRangeType, normalExpandedRange: ValueRangeType) -> CGFloat {
+  func value(compactNormalRange: ValueRangeType, normalExpandedRange: ValueRangeType) -> CGFloat {
     let progress = self.transitionProgress()
     let stateRange = self.stateRange()
     let valueRange = stateRange == .compactNormal ? compactNormalRange : normalExpandedRange

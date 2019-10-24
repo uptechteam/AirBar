@@ -74,18 +74,18 @@ class ViewController: UIViewController {
     backgroundView = UIImageView(image: #imageLiteral(resourceName: "grad"))
     backgroundView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: Constants.normalStateHeight)
 
-    darkMenuView = UINib(nibName: "MenuView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! MenuView
+    darkMenuView = UINib(nibName: "MenuView", bundle: nil).instantiate(withOwner: nil, options: nil).first as? MenuView
     darkMenuView.frame = CGRect(x: 0, y: Constants.normalStateHeight - 40, width: view.frame.width, height: view.frame.height)
     darkMenuView.setStyle(light: false)
-    lightMenuView = UINib(nibName: "MenuView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! MenuView
+    lightMenuView = UINib(nibName: "MenuView", bundle: nil).instantiate(withOwner: nil, options: nil).first as? MenuView
     lightMenuView.frame = darkMenuView.frame
     lightMenuView.setStyle(light: true)
 
-    normalView = UINib(nibName: "NormalView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! NormalView
+    normalView = UINib(nibName: "NormalView", bundle: nil).instantiate(withOwner: nil, options: nil).first as? NormalView
     normalView.clipsToBounds = true
     normalView.searchTapGestureRecognizer.addTarget(self, action: #selector(handleSearchViewTapped(_:)))
 
-    expandedView = UINib(nibName: "ExpandedView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! UIView
+    expandedView = UINib(nibName: "ExpandedView", bundle: nil).instantiate(withOwner: nil, options: nil).first as? UIView
     expandedView.clipsToBounds = true
 
     backButton = UIButton(frame: CGRect(x: 22, y: 34, width: 40, height: 40))

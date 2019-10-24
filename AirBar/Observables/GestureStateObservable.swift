@@ -6,7 +6,7 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
-internal class GestureStateObservable: Observable<UIGestureRecognizerState> {
+internal class GestureStateObservable: Observable<UIGestureRecognizer.State> {
   private weak var gestureRecognizer: UIGestureRecognizer?
   
   internal init(gestureRecognizer: UIGestureRecognizer) {

@@ -26,7 +26,7 @@ class TestScrollable: Scrollable {
 
   let contentSizeObservable = Observable<CGSize>()
   let contentOffsetObservable = Observable<CGPoint>()
-  let panGestureStateObservable = Observable<UIGestureRecognizerState>()
+  let panGestureStateObservable = Observable<UIGestureRecognizer.State>()
 
   var _updateContentOffsetReceivedArgs: (CGPoint, Bool)?
   func updateContentOffset(_ contentOffset: CGPoint, animated: Bool) {

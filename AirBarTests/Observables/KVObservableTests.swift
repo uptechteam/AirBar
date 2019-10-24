@@ -10,7 +10,7 @@ import XCTest
 @testable import AirBar
 
 private class TestObject: NSObject {
-  dynamic var property: Int = 0
+  @objc dynamic var property: Int = 0
 }
 
 class KVObservableTests: XCTestCase {

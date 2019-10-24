@@ -7,11 +7,11 @@
 //
 
 internal extension CGFloat {
-  internal func isNear(to number: CGFloat, delta: CGFloat) -> Bool {
+  func isNear(to number: CGFloat, delta: CGFloat) -> Bool {
     return self >= (number - delta) && self <= (number + delta)
   }
 
-  internal func map(from firstBounds: (CGFloat, CGFloat), to secondBounds: (CGFloat, CGFloat)) -> CGFloat {
+  func map(from firstBounds: (CGFloat, CGFloat), to secondBounds: (CGFloat, CGFloat)) -> CGFloat {
     guard self > firstBounds.0 else {
       return secondBounds.0
     }
@@ -25,7 +25,7 @@ internal extension CGFloat {
     return secondBounds.0 + ratio * (secondBounds.1 - secondBounds.0)
   }
 
-  internal func bounded(by bounds: (CGFloat, CGFloat)) -> CGFloat {
+  func bounded(by bounds: (CGFloat, CGFloat)) -> CGFloat {
     return Swift.max(bounds.0, Swift.min(bounds.1, self))
   }
 }
