@@ -6,6 +6,8 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
+import UIKit
+
 internal struct StateReducerParameters {
   let scrollable: Scrollable
   let configuration: Configuration

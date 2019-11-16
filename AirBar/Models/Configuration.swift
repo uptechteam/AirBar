@@ -6,6 +6,8 @@
 //  Copyright © 2017 uptechteam. All rights reserved.
 //
 
+import UIKit
+
 public struct Configuration {
   let compactStateHeight: CGFloat
   let normalStateHeight: CGFloat

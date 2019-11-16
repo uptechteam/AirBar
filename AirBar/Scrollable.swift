@@ -16,7 +16,7 @@ internal protocol Scrollable: class {
   var frame: CGRect { get }
   var contentSizeObservable: Observable<CGSize> { get }
   var contentOffsetObservable: Observable<CGPoint> { get }
-  var panGestureStateObservable: Observable<UIGestureRecognizerState> { get }
+  var panGestureStateObservable: Observable<UIGestureRecognizer.State> { get }
   func updateContentOffset(_ contentOffset: CGPoint, animated: Bool)
 }
 
@@ -30,7 +30,7 @@ extension UIScrollView: Scrollable {
     return KVObservable<CGPoint>(keyPath: #keyPath(UIScrollView.contentOffset), object: self)
   }
   
-  var panGestureStateObservable: Observable<UIGestureRecognizerState> {
+  var panGestureStateObservable: Observable<UIGestureRecognizer.State> {
     return GestureStateObservable(gestureRecognizer: panGestureRecognizer)
   }
   

@@ -19,9 +19,17 @@ Library supports [Carthage](https://github.com/Carthage/Carthage) dependency man
 github "uptechteam/AirBar" ~> 2.0
 ```
 
-Or if you prefer using [CocoaPods](https://github.com/CocoaPods/CocoaPods) add following line to your project Podfile
+Using [CocoaPods](https://github.com/CocoaPods/CocoaPods) add following line to your project Podfile
 ```
 pod 'AirBar', '~> 2.0'
+```
+
+Using `Swift Package Manager`, add the following line to your Package.swift:
+
+```
+dependencies: [
+  .package(url: "https://github.com/uptechteam/AirBar.git", .exact("2.0.6")),
+],
 ```
 
 ## How to use

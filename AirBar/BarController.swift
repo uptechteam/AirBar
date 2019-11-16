@@ -13,7 +13,7 @@ public typealias StateObserver = (State) -> Void
 private struct ScrollableObservables {
   let contentOffset: Observable<CGPoint>
   let contentSize: Observable<CGSize>
-  let panGestureState: Observable<UIGestureRecognizerState>
+  let panGestureState: Observable<UIGestureRecognizer.State>
 }
 
 public class BarController {
@@ -164,7 +164,7 @@ public class BarController {
   }
 
   // MARK: Pan Gesture Handlers
-  private func panGestureStateChanged(state: UIGestureRecognizerState) {
+  private func panGestureStateChanged(state: UIGestureRecognizer.State) {
     switch state {
     case .began:
       panGestureBegan()

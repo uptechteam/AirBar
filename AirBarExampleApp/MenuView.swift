@@ -13,7 +13,7 @@ class MenuView: UIView {
 
   func setStyle(light: Bool) {
     stackView.arrangedSubviews
-      .flatMap { $0 as? UILabel }
+      .compactMap { $0 as? UILabel }
       .forEach { $0.textColor = light ? UIColor.white : UIColor.black }
   }
 }
